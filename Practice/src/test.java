@@ -23,8 +23,7 @@ public class test {
 	        System.out.println(a.aa);
 	        B b=new B();
 	        b.setAA(a); 
-	        System.out.println(a.aa); 
-	        
+	        System.out.println(a.aa);  
 	        String name="심청이";
 	        System.out.println(name);
 	        b.setStr(name);
