@@ -3,7 +3,7 @@ class A
 	int aa=100;
 } 
 class B 
-{
+{ 
 	public void setAA(A a) 
 	{
 		a.aa=1000;
@@ -14,7 +14,7 @@ class B
 	}    
 } 
 
-public class test {
+public class test { 
 
 	public static void main(String[] args)  throws Exception{
 		// TODO Auto-generated method stub
