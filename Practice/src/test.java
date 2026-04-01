@@ -4,7 +4,7 @@ class A
 }
 class B
 {
-	public void setAA(A a)
+	public void setAA(A a) 
 	{
 		a.aa=1000;
 	}
