@@ -2,7 +2,7 @@ class A
 {
 	int aa=100;
 }
-class B
+class B 
 {
 	public void setAA(A a) 
 	{
