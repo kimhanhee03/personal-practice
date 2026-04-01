@@ -22,7 +22,7 @@ public class test {
 		 A a=new A();
 	        System.out.println(a.aa);
 	        B b=new B();
-	        b.setAA(a);
+	        b.setAA(a); 
 	        System.out.println(a.aa);
 	        
 	        String name="심청이";
