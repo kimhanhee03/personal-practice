@@ -12,7 +12,7 @@ class B
 	{
 		s="홍길동";
 	}    
-} 
+}  
 
 public class test { 
 
