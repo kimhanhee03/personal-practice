@@ -11,7 +11,7 @@ class B
 	public void setStr(String s)
 	{
 		s="홍길동";
-	} 
+	}  
 } 
 
 public class test {
