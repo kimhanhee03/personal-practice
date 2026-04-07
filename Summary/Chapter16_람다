@@ -11,3 +11,35 @@
   (매개변수) -> {실행문}
    ex)
     (a,b) -> a + b // 결과를 바로 리턴
+
+
+
+
+
+// 지피티
+  예시 (Thread)
+
+기존:
+
+new Thread(new Runnable() {
+    public void run() {
+        System.out.println("쓰레드 처리");
+    }
+});
+
+람다:
+
+new Thread(() -> System.out.println("쓰레드 처리"));
+✅ 어디에 많이 쓰냐?
+반복 처리
+리스트 다루기
+조건 필터링
+
+예:
+
+list.stream()
+    .filter(x -> x > 10)
+    .forEach(System.out::println);
+✅ 한줄 핵심
+
+👉 “짧게 함수처럼 쓰는 문법 (코드를 간단하게 줄이기 위한 것)”
