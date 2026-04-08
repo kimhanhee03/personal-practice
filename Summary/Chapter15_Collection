@@ -7,9 +7,62 @@ Collection: 데이터 묶음을 쉽게 관리하기 위한 Java 라이브러리
 
 List / Set / Map(독립적)
 
+List (순서 O, 중복 O)
+  대표 클래스: *ArrayList*, Vector
+   -입력 순서 유지 (순위, 정렬 중요할 때 사용)
+   -데이터 중복 허용
+  주요 메소드
+    add() : 데이터 추가
+    get() : 데이터 조회
+    size() : 개수 확인
+    isEmpty() : 비어있는지 확인
+
+Set (순서 X, 중복 X)
+  대표 클래스: HashSet, TreeSet
+    -중복 제거 자동 처리
+    -순서 없음
+  주요 메소드
+     add()
+     size()
+     isEmpty()
+
+Map (Key-Value 구조)
+  대표 클래스: HashMap
+    -key를 이용한 빠른 검색
+    -key는 중복 불가, value는 중복 가능
+  주요메소드
+     put(key, value)
+     get(key)
+     size()
+     isEmpty()
+
 구분   |           특징	          |   사용 상황
 -------------------------------------------------
 List   |    순서 있음,중복 허용	  |   순위, 목록
 Set	   |    순서 없음,중복 제거	  |   중복 체크
 Map	   |     key-value 구조	      |   빠른 조회
 
+
+Iterator
+  컬렉션 데이터를 순차적으로 접근하는 인터페이스
+    -단방향 (위 → 아래)
+    -List / Set에서 사용
+    -안전한 반복 처리 가능
+
+ListIterator
+  List 전용 반복자
+    -양방향 이동 가능
+
+제네릭 
+   컬렉션은 반드시 제네릭 사용
+       ㄴ타입 안정성
+         형변환 제거
+         코드 가독성 향상
+    
+기본형 vs Wrapper 클래스
+  컬렉션에는 기본형 사용 불가 > 반드시 Wrapper 사용
+      기본형       Wrapper
+----------------------------------
+        int	      Integer
+      double	    Double
+      boolean  	  Boolean
