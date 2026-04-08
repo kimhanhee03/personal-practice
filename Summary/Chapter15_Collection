@@ -64,5 +64,5 @@ ListIterator
       기본형       Wrapper
 ----------------------------------
         int	      Integer
-      double	 Double
+      double	   Double
       boolean  	  Boolean
