@@ -65,3 +65,11 @@ I/O (Input / Output) 개념
 
 
 
+  etc     
+     read() → 1바이트씩 읽기
+     close() → 스트림 닫기
+
+  
+ 
+
+
