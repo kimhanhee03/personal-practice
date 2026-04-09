@@ -79,6 +79,47 @@ UnCheck Exception (실행 시 발생)
        NullPointerException → null 참조
        ClassCastException → 형변환 오류
        ArithmeticException → 0으로 나누기
+
+
+예외 발생 원인
+  1) 사용자 실수
+     잘못된 입력
+     유효성 검사 필요 (if)
+  2) 개발자 실수
+     인덱스 오류
+     타입 변환 오류
+     파일/DB/네트워크 문제
+     반드시 예외처리 필요
+
+
+ 다중 catch
+    try {
+    } catch (NumberFormatException e) {
+    } catch (ArrayIndexOutOfBoundsException e) {
+    } catch (Exception e) {
+    }
+   규칙
+     구체적인 예외 → 위
+     큰 범위(Exception) → 아래
+
+
+예외처리 핵심 정리
+   목적
+     프로그램 종료 방지
+     안정성 확보
+   방법
+     try~catch → 직접 처리 (가장 많이 사용)
+     throws → 호출한 곳으로 넘김
+     throw → 강제 발생
+   중요 포인트
+     finally → 항상 실행
+     catch → 여러 개 가능
+     Exception → 가장 큰 범위 (맨 마지막)
+
+---------------------------------------------------> 예외처리는 “에러가 나도 프로그램이 멈추지 않게 하는 안전장치”다
+
+
+
     
 
 
