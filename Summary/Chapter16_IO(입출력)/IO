@@ -1,1 +1,44 @@
-
+ 18장
+    IO: 데이터의흐름의 관리(통로)
+     ㄴ데이터 이동(Stream) > 데이터 이동 공간
+     ㄴ단방향(입략/출력 > 동시 (쓰레드))
+   	 		 ㄴex)카톡
+     	 			   1.서버로 메세지 전송 > 엔터(Output)
+     				   2.출력 > 쓰레드 (Input)
+      사용처
+      	파일 일기/쓰기 > 파일 이동 / 텍스트 변경 / 설정 파일
+      	네트워크 통신(주고/받기):서버와 클라이언트 통신
+       사용자 입력 > 콘솔
+       > InputStream > HttpServletReques
+       > OutputStream > HttpServleResponse
+        ----------------오라클: PreparedStatment
+        
+      핵심
+       Stream: 데이터를 보내는 통로(단방향 > 읽기/쓰기)
+       Buffered: 한번에 여러개 데이터를 동시에 보낸다: 효율적이다
+       
+       주요클래스
+         InputStream: 읽기
+         	  |
+         FileInputStream(1byte씩 전송) = 업로드/다운로드
+         BufferedInputStraem
+         
+          OutputStream: 쓰기
+         	  |
+         FileOutputStream(1byte씩 전송) = 파일 쓰기
+         BufferedOutputStraem
+         
+          Reader: 읽기
+         	  |
+         FileReader(2byte씩 전송) = 파일을 제어(쓰기)
+         BufferedReader: 크롤링 > Jsoup
+         
+          Writer: 쓰기
+         	  |
+         FileWriter(2byte씩 전송) = 파일 쓰기
+         BufferedWriter
+         
+         ObjectInputStream / ObjectOutputStream > 일반 애플리케이션
+         -----------------------------------------
+         	  ㄴ파일 > 노출/연결성이 거의 X/구분이 없다: 데이터베이스
+         		 > JSON/XML
