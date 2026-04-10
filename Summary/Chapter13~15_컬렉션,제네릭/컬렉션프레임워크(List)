@@ -49,8 +49,8 @@ List 구조 관계
      요즘 거의 안 씀 (ArrayList + Collections 사용)
 
 
-구조	 |        특징
-List	 |   순서 O, 중복 O
+구조	|        특징
+List	|   순서 O, 중복 O
 Set	    |   순서 X, 중복 X
 Map	    |   key-value 구조
 
