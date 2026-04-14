@@ -15,7 +15,7 @@
   3. SQL (데이터베이스 언어)
       데이터를 다루는 핵심 언어
         종류
-          DQL (조회): SELECT ⭐ (가장 중요)
+          DQL (조회): SELECT **(가장 중요)
           DML (조작): INSERT, UPDATE, DELETE → CRUD
           DDL (정의): CREATE, ALTER, DROP, TRUNCATE
           DCL (권한): GRANT, REVOKE
