@@ -1,6 +1,0 @@
-select * from emp where ename like '%윤%';
-  search - 검색
-  * - 전체
-  %A% - 조건문(if)
-  %A -
-  A% -
