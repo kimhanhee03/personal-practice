@@ -187,8 +187,8 @@ JOIN (테이블 연결)
 
   10. DELETE vs TRUNCATE vs DROP
       명령어	            설명	              롤백
-      DELETE	 데이터 삭제	               O
-      TRUNCATE	 데이터 전체 빠르게 삭제	   X
+      DELETE	   데이터 삭제	           O
+      TRUNCATE	   데이터 전체 빠르게 삭제	     X
       DROP	       테이블 자체 삭제	         X
 
   11. SQL 기본 특징
@@ -197,7 +197,7 @@ JOIN (테이블 연결)
        3. 문자열/날짜 → ' ' 필수
        4. 문장 끝 → ;
 
- 초압축
+ 초압축 정리
    1. 실행순서
         FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
    2. NULL
