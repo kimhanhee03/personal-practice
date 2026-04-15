@@ -87,3 +87,78 @@
        TABLE = 파일  
        COLUMN = 변수
        ROW = 데이터(객체)
+=====================================================
+⭐⭐⭐⭐⭐
+  1. SQL 종류 
+      DML : SELECT, INSERT, UPDATE, DELETE  (데이터 조작)
+      DDL : CREATE, ALTER, DROP, TRUNCATE   (구조 변경)
+      DCL : GRANT, REVOKE                  (권한)
+      TCL : COMMIT, ROLLBACK, SAVEPOINT    (트랜잭션)  
+        Q. DELETE vs TRUNCATE 차이?
+             DELETE: 롤백 가능, 느림
+             TRUNCATE: 롤백 불가, 빠름
+
+  2. SELECT 실행 순서 
+      FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+
+  3. WHERE 핵심 포인트
+     ✔ NULL 비교
+        IS NULL / IS NOT NULL
+         → = NULL X (절대 틀리면 안됨)
+     ✔ BETWEEN vs IN 차이
+          BETWEEN : 범위
+            IN    : 여러 값
+     ✔ LIKE 패턴
+         'A%'   → 시작
+         '%A'   → 끝
+         '%A%'  → 포함
+
+  4. SELECT 사용 핵심
+       * 사용
+         * → 전체 조회 (성능 안 좋음, 실무에서 지양)
+       DISTINCT
+         중복 제거
+       별칭
+         컬럼 AS 이름
+          > AS 생략 가능
+      문자열 연결
+         ||
+
+  5. 함수 핵심
+      NVL(컬럼, 값)  → NULL 대체
+      TO_CHAR()      → 문자 변환
+      TO_NUMBER()    → 숫자 변환
+        ***NULL 처리 = NVL 거의 필수 
+
+  6. 트랜잭션 (TCL)
+      COMMIT    → 저장
+      ROLLBACK  → 취소
+      SAVEPOINT → 중간 저장
+    핵심 질문
+     COMMIT 후 ROLLBACK 가능?
+     > X 불가능
+
+  7. DDL 핵심 포인트
+      CREATE : 생성
+      ALTER  : 구조 변경
+      DROP   : 완전 삭제
+      TRUNCATE : 데이터만 삭제 (빠름)
+
+
+초압축 정리
+  1. 실행순서
+      FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+  2. SQL 종류
+      DML / DDL / DCL / TCL
+  3. NULL
+    = NULL  X
+    IS NULL  O
+  4. DELETE vs TRUNCATE
+    DELETE → 롤백 O, 느림
+    TRUNCATE → 롤백 X, 빠름
+  5. LIKE
+    'A%' 시작 / '%A' 끝 / '%A%' 포함
+  6. NVL
+    NULL → 값 변환
+  7. COMMIT 이후 ROLLBACK
+    X 불가능
