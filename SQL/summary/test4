@@ -58,5 +58,19 @@
       3. 범위 조건
           BETWEEN A AND B
           → A 이상 B 이하
-
+      4. 다중 조건
+          IN (값1, 값2, 값3)
+      5. NULL 처리 (중요)
+          IS NULL
+          IS NOT NULL
+          !주의
+          comm = NULL  → X  
+      6. 패턴 검색 (LIKE)
+          %  : 여러 글자
+          _  : 한 글자
+          ex)
+           '%A%'   → 포함
+           'A%'    → 시작
+           '%A'    → 끝
+           '__A__' → 가운데
       
