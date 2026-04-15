@@ -55,5 +55,8 @@
           AND  : 둘 다 만족
           OR   : 하나만 만족
           NOT  : 반대
+      3. 범위 조건
+          BETWEEN A AND B
+          → A 이상 B 이하
 
       
