@@ -187,7 +187,7 @@ JOIN (테이블 연결)
 
   10. DELETE vs TRUNCATE vs DROP
       명령어	            설명	              롤백
-      DELETE	   데이터 삭제	           O
+      DELETE	   데이터 삭제	             O
       TRUNCATE	   데이터 전체 빠르게 삭제	     X
       DROP	       테이블 자체 삭제	         X
 
