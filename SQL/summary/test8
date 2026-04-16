@@ -14,6 +14,7 @@
      📌 특징
           가장 많이 사용됨
           NULL은 제외됨
+
        문법
          오라클 방식
             SELECT a.col, b.col
@@ -23,13 +24,16 @@
             SELECT a.col, b.col
             FROM A a
             JOIN B b ON a.col = b.col;
+
         종류
           EQUI JOIN → = (같은 값)
           NON-EQUI JOIN → 범위 (BETWEEN, <, >)
+
         SELF JOIN
          → 같은 테이블끼리 조인
             FROM emp e1, emp e2
             WHERE e1.mgr = e2.empno;
+
 
     2) OUTER JOIN (NULL 처리용)
       → INNER JOIN에서 빠지는 데이터까지 포함
@@ -39,24 +43,53 @@
              SELECT a.col, b.col
              FROM A a LEFT JOIN B b
              ON a.col = b.col;
-              오라클 방식
-               WHERE a.col = b.col(+)
-✔ RIGHT OUTER JOIN
+            -----------------------
+             ✔ 오라클 방식
+              SELECT a.col, b.col
+              FROM A a, B b
+              WHERE a.col = b.col(+);
 
-👉 오른쪽 테이블 기준
+         RIGHT OUTER JOIN
+           오른쪽 테이블 기준
+             SELECT a.col, b.col
+             FROM A a RIGHT JOIN B b
+             ON a.col = b.col;
+             -----------------------
+             ✔ 오라클 방식
+              SELECT a.col, b.col
+              FROM A a, B b
+              WHERE a.col(+) = b.col;
 
-SELECT a.col, b.col
-FROM A a RIGHT JOIN B b
-ON a.col = b.col;
+          FULL OUTER JOIN
+            양쪽 테이블 모든 데이터
+              SELECT a.col, b.col
+              FROM A a FULL JOIN B b
+              ON a.col = b.col;
 
-✔ 오라클 방식
+=========================================
+⭐⭐⭐⭐⭐
+1. INNER JOIN 한 줄 정의
+    “두 테이블의 공통된 데이터만 조회 (교집합)”
 
-WHERE a.col(+) = b.col
-✔ FULL OUTER JOIN
+2. OUTER JOIN 한 줄 정의
+    “조건이 맞지 않아도 한쪽 데이터를 유지 (NULL 포함)”
 
-👉 양쪽 테이블 모든 데이터
+3. LEFT JOIN vs RIGHT JOIN
+    LEFT JOIN	- 왼쪽 테이블 기준
+    RIGHT JOIN - 오른쪽 테이블 기준
+     → 기준 테이블은 무조건 다 출력
 
-SELECT a.col, b.col
-FROM A a FULL JOIN B b
-ON a.col = b.col;
+4. 가장 많이 나오는 질문
+    ✔ Q. INNER JOIN vs OUTER JOIN 차이
+       INNER → 공통 데이터만
+       OUTER → 공통 + 한쪽 데이터까지
+
+5. SELF JOIN
+   같은 테이블을 두 번 사용하는 조인
+    → 조직도 / 상사-부하 관계 문제
+
+6. 오라클 vs ANSI 차이
+    오라클 → WHERE 사용 ((+))
+    ANSI → JOIN ON 사용 (표준, 권장)
+
 
