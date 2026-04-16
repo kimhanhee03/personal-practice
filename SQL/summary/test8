@@ -21,9 +21,9 @@
             FROM A a, B b
             WHERE a.col = b.col;
          ANSI 방식 (표준)
-            SELECT a.col, b.col
-            FROM A a
-            JOIN B b ON a.col = b.col;
+             SELECT A.col , B.col
+             FROM A JOIN B
+             ON A.col=B.col
 
         종류
           EQUI JOIN → = (같은 값)
