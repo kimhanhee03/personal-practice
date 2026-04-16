@@ -1,0 +1,65 @@
+📌 1. 기본 JOIN
+select empno, ename, job, hiredate, sal, dname, loc
+from emp join dept
+on emp.deptno = dept.deptno;
+
+👉 join : 두 테이블(emp, dept)을 연결하는 역할
+
+📌 2. 3개 테이블 JOIN
+select orderid, name, orders.bookid, bookname, saleprice, orderdate
+from orders, customer, book
+where orders.custid = customer.custid
+and orders.bookid = book.bookid;
+
+👉 where : 테이블들 간의 연결 조건을 지정
+
+📌 3. 범위 JOIN (BETWEEN)
+select empno, ename, sal, grade
+from emp e join salgrade s
+on sal between losal and hisal;
+
+👉 between : 값이 특정 범위에 속하는지 확인 (급여 → 등급 매칭)
+
+📌 4. 다중 JOIN (emp + dept + salgrade)
+select empno, ename, job, hiredate, sal, dname, loc, grade
+from emp join dept 
+on emp.deptno = dept.deptno
+join salgrade
+on sal between losal and hisal;
+
+👉 join 여러 번 : 3개 이상의 테이블을 계속 이어서 연결
+
+📌 5. 조건 조회 (입력값)
+select empno, ename, job, hiredate, sal, comm, dname, loc
+from emp join dept
+on emp.deptno = dept.deptno
+where empno = &사번;
+
+👉 &사번 : 실행 시 값을 입력받는 변수
+
+📌 6. JOIN 방식 비교
+(1) WHERE JOIN
+select empno, ename, dname
+from emp, dept
+where emp.deptno = dept.deptno;
+
+👉 , + where : 옛날 방식으로 테이블 연결
+
+(2) ANSI JOIN
+select empno, ename, dname
+from emp join dept
+on emp.deptno = dept.deptno;
+
+👉 on : JOIN할 조건을 명확하게 지정
+
+(3) USING
+select empno, ename, dname
+from emp join dept using(deptno);
+
+👉 using : 같은 컬럼명을 간단하게 연결
+
+(4) NATURAL JOIN
+select empno, ename, dname
+from emp natural join dept;
+
+👉 natural join : 같은 이름 컬럼을 자동으로 연결
