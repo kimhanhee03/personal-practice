@@ -1,0 +1,157 @@
+--오라클3일차 04/15 (내장 - 단일행 함수 / Group By / Join)
+--select문장(검색) > 연산자 / 집계함수 / group by / join / subquery
+--DDL (table. 데이터형) > insert / update / delete
+/*
+	내장함수: 라이브러리(오라클에서 지원하는 함수)
+		       내장함수
+			    집계함수 column 단위
+				row 갯수: count
+				row 전체 최대값,최소값: max,min
+				row의 총합,평균: sum,avg
+				순위: rank,dense_rank
+				---------------------------
+				row 한개 계산: rollup
+				row/column: cube
+				--------------------------- group by가 존재
+			    단일행 함수 row단위
+				1.문자 함수
+				    =length / lengthb > 문자의 갯수 / 문자의 바이트수
+				      length('ABC') > 3
+				      length('홍길동') > 3
+				      length('ABC') > 3
+				      length('홍길동') > 9 - 한글은 한글자당 byte > 3		
+				    =LPAD/***RPAD
+					   ex) ID > ad*****
+					 LPAD(문자열,글자수,'변경할 문자')
+					 LPAD('KING',10,'#') > ######KING
+					 RPAD(문자열,글자수,'변경할 문자')
+					 RPAD('KING',10,'#') > KING######
+				    =**UPPER / LOWER / INITCAP	
+					   upper(문자열) > 대문자변경
+					     upper('abc') > ABC
+					   lower(문자열) > 소문자변경
+					     lower('ABC') > abc
+					   initcap(문자열) > 첫자만 대문자
+					     initcap('king') > King
+				    =REPLACE: 변경  >  크롤링 > & > ^
+					   replace(문자열, 찾는 문자, 변경할 문자)
+					      replace('Hello Java', 'a', 'b') > Hello Jbvb		
+				    =TRIM: 공백 / 특정문자 제거 (자바는 공백만 제거)
+					   ltrim(), rtrim(), trim() - 왼쪽만 제거, 오른쪽 제거, 좌우 제거		
+					    ltrim('문자열') - 왼쪽 공백 제거
+					    ltrim('문자열','제거할 문자') - 왼쪽 문자 제거
+					    rtrim은 반대 (쓰기 귀찮음 ㅋ)
+					    trim: 좌우 공백제거
+					    trim('문자열') > 공백제거
+					    trim(문자 from 문자열)
+					       문자열 제거가 온딤 > 문자1개만 가능
+						  근데 연속된 문자는 다 지울 수 있음 아마도
+				    =ASCII / CHR
+					ASCII - 숫자변환 - ASCII('A') > 65
+					CHR - 문자 - CHR(65) > A
+				    =SUBSTR / INSTR / CONCAT
+					    *******SUBSTR - 문자열 자르기 (substring)
+									SUBSTR(문자열,시작위치,갯수) > 문자번호 > 1번
+										ex)
+										   SUBSTR('oracle',1,3) > ora
+										   SUBSTR('oracle',2,2) > ra 		
+					    ***INSTR - 문자위치 (indexOf)
+								 INSTR(문자열,찾을문자,시작위치,몇번째)
+									ex)
+									  INSTR('Hell Java','a',1,2) > 10   --이건 앞에서부터
+									  INSTR('Hell Java','a',-1,2) > 8   --이건 뒤에서부터	
+					    CONCAT - 문자열 결합 > || > '%'||?||'%' > Oracle / CONCAT('%',?,'%') > MySQL
+								     CONCAT: 문자열 결합 > ||
+								     CONCAT('문자열','결합될 문자열')
+								     select concat('Hello ','Oracle') > Hello Oracle
+						
+						 > LENGTH: 문자의 갯수	
+						 > SUBSTR: 문자 자르기
+						 > INSTR: 문자 번호 검색
+						 > RPAD > 문자 채우는 함수
+						 > REPLACE > 문자를 변경
+						-----------------------------------이 5개는 기억해야됨	
+		
+				2.숫자 함수(211page)
+				       =MOD: %나머지
+					     MOD(10,2)=0 10%2 
+				       =CEIL: 올림 > 총페이지 구하기
+					 CEIL(9.1) > 10
+				     ------------------------	
+				       =TRUNC: 버림
+					 TRUNC(9.8) > 9
+				       =ROUND: 반올림	
+					 TRUNC(9.8) > 10
+				     ------------------------날짜(LONG)
+				3.날짜 함수
+				   ***=SYSDATE: 시스템의 날짜/시간 > 숫자
+					SYSDATE-1 / SYSDATE+1
+					등록일을 자동처리 
+				  ***=MONTHS_BETWEEN(현재,과거) > 현재/과거 사이의 총개월 수(예: 근무개월수)
+				      =ADD_MONTHS > 금융권
+					  ADD_MONTHS('26/03/03',7)
+					  적금:3년/보험	
+				      =LAST_DAY
+					   LAST_DAY(SYSDATE) > 30 (이번달 마지막날 구한값)
+					   LAST_DAY('26/02/01') > 28
+				      =NEXT_DAY(날짜,'수') 			
+				4.변환 함수
+				      ***TO_CAHR: 숫자,날짜 > 문자열 변환
+				      TO_NUMBER: 문자 > 숫자
+				      TO_DATE: 문자 > 날짜		
+				      VARCHAR2 / DATE / NUMBER
+				      CHAR
+				      CLOB	
+		
+					> 날짜변환 / 숫자변환-999,999
+						Date를 사용하면 > SimpleDateFormat > 입력시간:000000	
+					> 
+					    년도: YY / YYYY
+					    월: MM
+					    일: DD
+					    시: HH / HH24
+					    분: MI
+					    초: SS
+					    요일: DAY
+					TO_NUMBER('10') > 정수형 변환 > 많이 사용하지 않는다
+					SELECT '10'+1 FROM DUAL > 11
+					> 가급적 사용하지 않는다 > 튜닝(SQL)
+					TO_DATE() > 문자열 > DATE로 변경
+					 :생년월일, 예약날짜 > 문자열 > DATE
+				5.기타 함수			
+				     NVL / DECODE / CASE
+				     NVL =null값이 있는 경우에 다른 값으로 변경(대체)
+				     NVL(comm,0) , NVL(bunji,' ')
+
+				     DECODE: 선택문 / CASE: 다중 조건문
+					|값1개 지정		|범위 지정
+				     
+				     CASE: 조건식 다양하게 사용이 가능(연산자) <,>, BETWEEN ~ AND
+						많이 사용되는 문장
+						> TRIGGER
+						> 부서별 보너스 계산
+						> 호봉 / 연차
+						case
+						   when 조건 then 값
+						   when 조건 then 값
+						   when 조건 then 값	
+						   else 값
+						end as 별칭
+
+					decode               case
+	                               ----------------------------
+					   =               모든 조건 연산
+				    가독성 낮다              높다
+				    단순값 비교         복잡한 조건
+
+
+			   형식 > 순서 > 라이브러리 > 활용 - 공부법
+
+
+      
+			
+	
+
+		
+*/
+
