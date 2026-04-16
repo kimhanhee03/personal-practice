@@ -1,0 +1,62 @@
+1. JOIN 핵심 개념
+  JOIN = 여러 테이블을 연결해서 하나의 결과로 조회
+     📌 왜 쓰냐?
+          정규화 때문에 테이블이 나뉘어 있음
+          → 필요한 데이터를 합쳐야 함
+     📌 특징
+          SELECT에서만 사용
+          반드시 연결 조건 필요
+
+
+2. JOIN 종류
+    1) INNER JOIN (가장 중요)
+      → 공통된 데이터만 조회 (교집합)
+     📌 특징
+          가장 많이 사용됨
+          NULL은 제외됨
+       문법
+         오라클 방식
+            SELECT a.col, b.col
+            FROM A a, B b
+            WHERE a.col = b.col;
+         ANSI 방식 (표준)
+            SELECT a.col, b.col
+            FROM A a
+            JOIN B b ON a.col = b.col;
+        종류
+          EQUI JOIN → = (같은 값)
+          NON-EQUI JOIN → 범위 (BETWEEN, <, >)
+        SELF JOIN
+         → 같은 테이블끼리 조인
+            FROM emp e1, emp e2
+            WHERE e1.mgr = e2.empno;
+
+    2) OUTER JOIN (NULL 처리용)
+      → INNER JOIN에서 빠지는 데이터까지 포함
+
+        LEFT OUTER JOIN
+          왼쪽 테이블 기준 (왼쪽은 무조건 다 나옴)
+             SELECT a.col, b.col
+             FROM A a LEFT JOIN B b
+             ON a.col = b.col;
+              오라클 방식
+               WHERE a.col = b.col(+)
+✔ RIGHT OUTER JOIN
+
+👉 오른쪽 테이블 기준
+
+SELECT a.col, b.col
+FROM A a RIGHT JOIN B b
+ON a.col = b.col;
+
+✔ 오라클 방식
+
+WHERE a.col(+) = b.col
+✔ FULL OUTER JOIN
+
+👉 양쪽 테이블 모든 데이터
+
+SELECT a.col, b.col
+FROM A a FULL JOIN B b
+ON a.col = b.col;
+
