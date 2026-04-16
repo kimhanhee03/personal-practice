@@ -1,16 +1,16 @@
-📌1. 서브쿼리 기본
+📌 1. 서브쿼리 기본
 select *
 from emp
 where sal < (select avg(sal) from emp);
 👉 서브쿼리 : 평균값을 먼저 구해서 조건으로 사용
 
-📌2. 서브쿼리 개념 정리
+📌 2. 서브쿼리 개념 정리
 1. 단일행 서브쿼리 : 결과 1개
 2. 다중행 서브쿼리 : 결과 여러개
 3. 다중컬럼 서브쿼리 : 컬럼 여러개
 👉 서브쿼리는 “쿼리 안에 들어있는 쿼리”
 
-📌3. 서브쿼리로 통합
+📌 3. 서브쿼리로 통합
 select *
 from emp
 where deptno = (
@@ -20,7 +20,7 @@ where deptno = (
 );
 👉 SCOTT과 같은 부서 사람 조회 
 
-📌4. 중첩 서브쿼리
+📌 4. 중첩 서브쿼리
 select deptno
 from emp
 where deptno = (
@@ -29,14 +29,14 @@ where deptno = (
     where sal = (select max(sal) from emp)
 );
 👉 최고 급여자의 부서를 기준으로 조회
-
-📌5. 다중행 서브쿼리 문제
+ 
+📌 5. 다중행 서브쿼리 문제
 select *
 from emp
 where deptno = (select distinct deptno from emp);
 👉 ❌ 에러 가능 (여러 값 반환)
 
-📌6. IN / ANY / SOME / ALL
+📌 6. IN / ANY / SOME / ALL
 select *
 from emp
 where deptno in (select distinct deptno from emp);
@@ -67,7 +67,7 @@ from emp
 where deptno <= all (select distinct deptno from emp);
 👉 all : 최소값 기준
 
-📌7. 핵심 개념 정리
+📌 7. 핵심 개념 정리
 IN   = 여러 값 중 하나
 ANY  = 하나라도 만족하면 OK
 ALL  = 전부 만족해야 OK
