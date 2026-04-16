@@ -66,3 +66,8 @@ select *
 from emp
 where deptno <= all (select distinct deptno from emp);
 👉 all : 최소값 기준
+
+7. 핵심 개념 정리
+IN   = 여러 값 중 하나
+ANY  = 하나라도 만족하면 OK
+ALL  = 전부 만족해야 OK
