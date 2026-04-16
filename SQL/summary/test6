@@ -70,13 +70,41 @@
           ex) '%' || 'A' || '%'
 
 ============================================================
-
+⭐⭐⭐⭐⭐
 1. 가장 중요한 함수 5개(뮤조건 암기)
-SUBSTR
-INSTR
-LENGTH
-REPLACE
-RPAD
+      SUBSTR
+      INSTR
+      LENGTH
+      REPLACE
+      RPAD
+
+2. NULL 처리
+    NVL(comm, 0)
+     → NULL이면 0으로 바꿈
+
+3. CASE문
+    CASE
+    WHEN 조건 THEN 값
+    ELSE 값
+    END
+
+4. GROUP BY 핵심
+    “GROUP BY 안 쓰면?”
+    → 집계함수 + 일반 컬럼 같이 못 씀 (에러)
+
+5. 날짜 핵심
+    SYSDATE
+    ADD_MONTHS
+    MONTHS_BETWEEN
+
+6. 변환 함수
+     TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+
+
+  한 줄 핵심 요약
+    "문자(SUBSTR, INSTR), 날짜(SYSDATE), NULL(NVL), 조건(CASE), 그룹(GROUP BY)"
+
+
      
     
       
