@@ -17,9 +17,9 @@
 
        문법
          오라클 방식
-            SELECT a.col, b.col
-            FROM A a, B b
-            WHERE a.col = b.col;
+             SELECT A.col , B.col 
+             FROM A,B
+             WHERE A.col=B.col
          ANSI 방식 (표준)
              SELECT A.col , B.col
              FROM A JOIN B
