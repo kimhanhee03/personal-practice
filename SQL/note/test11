@@ -1,0 +1,39 @@
+--187page > DML(데이터 조작언어)
+/*
+     insert 
+     update
+     delete
+    ---------------내용 변경 > commit(오라클)
+			ㄴ자바는 autocommit
+     insert:데이터 추가(테이블)
+     ----------------------------
+     update: 데이터 수정
+     delete: 데이터 삭제
+    --------------------------이상현상:원하지 않는 데이터 변경
+						 -------------------------------primary key
+						   무결성
+  	insert
+	   형식)
+		1.전체 값 추가
+		    insert into board values(값,값) > 문자열".날짜"
+				   -------board에 있는 모든 컬럼값을 추가
+				   -------default가 무용
+		2.지정된 값 추가
+		   insert into board(no,name,subject,content,pwd) values(갯수만큼 지정)
+	update
+	    형식)
+		1.전체 수정
+			update table_name set
+			컬럼=값, 컬럼=값
+		2.조건에 맞는 데이터 수정
+			update table_name set
+			컬럼=값, 컬럼=값
+			where 조건
+	 delete
+	      형식)
+		1. 전체 삭제
+			delete from table_name
+		2. 조건에 맞는
+		
+*/
+-- 이거 형식 무조건 외우래
