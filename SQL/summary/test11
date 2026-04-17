@@ -1,0 +1,108 @@
+1. 핵심 요약 (DML)
+  ✔ DML (데이터 조작 언어)
+     데이터 조회/추가/수정/삭제
+        INSERT → 데이터 추가
+        UPDATE → 데이터 수정
+        DELETE → 데이터 삭제
+        (SELECT → 조회, 따로 분류하기도 함)
+
+  ✔ 트랜잭션 (중요)
+      변경 후 반드시 COMMIT
+      취소 → ROLLBACK
+        → 오라클: 수동 COMMIT
+          자바(JDBC): 기본 AutoCommit (설정 가능)
+
+
+2. INSERT (데이터 추가)
+  ✔ 전체 컬럼 추가
+    INSERT INTO 테이블명 VALUES (값1, 값2, 값3, ...);
+     -컬럼 순서 100% 맞아야 함
+     -DEFAULT 적용 ❌ (값을 직접 넣었기 때문)
+
+  ✔ 일부 컬럼만 추가 (권장)
+    INSERT INTO 테이블명 (컬럼1, 컬럼2)
+    VALUES (값1, 값2);
+     -지정 안 한 컬럼 → DEFAULT or NULL 적용
+
+
+3. UPDATE (데이터 수정)
+  ✔ 전체 수정 (주의)
+    UPDATE 테이블명
+    SET 컬럼1 = 값1, 컬럼2 = 값2;
+     → WHERE 없으면 전체 변경 (위험)
+
+  ✔ 조건 수정 (기본)
+      UPDATE 테이블명
+      SET 컬럼 = 값
+      WHERE 조건;
+
+
+4. DELETE (데이터 삭제)
+  ✔ 전체 삭제
+    DELETE FROM 테이블명;
+
+  ✔ 조건 삭제
+    DELETE FROM 테이블명
+    WHERE 조건;
+
+
+5. 핵심 개념 (무결성 & 이상현상)
+  ✔ 이상현상 - 원하지 않는 데이터 변경/삭제 발생
+    해결 방법
+     → PRIMARY KEY + 제약조건
+
+  ✔ 제약조건 체크 시점
+      INSERT → 추가 시 검사
+      UPDATE → 수정 시 검사
+       → 조건 어기면 에러 발생
+
+6. 추가
+  (1) UPDATE / DELETE에서 WHERE 필수 (실무에서 가장 많이 터지는 사고)
+       → UPDATE member SET name='홍길동'; -- 전체 변경됨 (대참사)
+
+  (2) DELETE vs TRUNCATE
+     DELETE → 롤백 가능, WHERE 가능
+     TRUNCATE → 전체 삭제, 롤백 불가, 빠름
+
+  (3) INSERT 시 NULL 주의
+      NOT NULL 컬럼 → 반드시 값 필요
+      안 넣으면 에러
+
+  (4) 문자열 / 날짜 표기
+     문자열 → '홍길동'
+     날짜 → '2026-04-17' 또는 SYSDATE
+
+  (5) 트랜잭션 흐름 ***
+        INSERT ...
+        UPDATE ...
+        DELETE ...
+        COMMIT;  -- 확정
+        ROLLBACK; -- 취소
+
+=====================================
+⭐⭐⭐⭐⭐
+📌1. DML 정의
+    “데이터를 추가, 수정, 삭제하는 언어입니다.”
+
+📌2. DML 종류
+   INSERT / UPDATE / DELETE
+
+📌3. INSERT 2가지
+    전체 컬럼 입력
+    컬럼 지정 입력 (실무에서 더 많이 사용)
+
+📌4. UPDATE 핵심
+    WHERE 없으면 전체 수정됨 (중요)
+
+📌5. DELETE 핵심
+    WHERE 없으면 전체 삭제됨
+
+📌6. 트랜잭션
+    COMMIT = 저장 / ROLLBACK = 취소
+
+📌7. 제약조건 검사 시점
+    INSERT / UPDATE 시 체크됨
+
+
+
+
