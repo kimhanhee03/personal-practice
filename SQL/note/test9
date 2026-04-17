@@ -1,0 +1,59 @@
+/*
+	JOIN 주의점
+	  1. 테이블 두개 필요한 데이터 추출(join)
+	  2. 컬럼명이 동일 / 같은 값을 가지고 있는 경우
+	  3. 컬럼명이 동일시에는 반드시 테이블.컬럼 , 별칭,컬럼
+						     ---------------------------애매한 정의
+	  4. NATURAL JOIN, JOIN ~ USING: 같은 컬럼명이 존재, NON-EQUI-JOIN에서 사용이 불가능
+	  5. join조건
+		> 같은 데이터를 가지고 있어야
+		    영화 = 맛집
+			> 지역
+		    멜론=지니뮤직
+			> 곡명 / 가수명
+		> select문장에서 사용이 가능
+		> 오라클 / ANSI join
+		      from 테이블1, 테이블2
+		      where join 조건
+			
+		      from 테이블1 join 테이블2
+		      on 조인 조건
+		
+		      > 조인 조건외 다른 조건이 있는 경우 and
+	    6. 한쪽에만 데이터가 존재할때는 > outer join
+	    7. 데이터 연결 추출
+	   --------------------------------------------------------------
+	    SQL문장 여러개 연결 > 서브쿼리(170page)
+	    > 웹 개발자가 많이 사용하는 문장
+	    > 이유: 네트워크 통신
+		      ------------------전송1, 수신1
+	    > DML 전체에서 사용이 가능
+		-------------------------------INSERT / UPDATE / DELETE
+	    > 종류
+	         1 .where 뒤에 일반 서브쿼리 > 조건문
+		 2. select 뒤에 스카라서브쿼리 ***(join대체)
+		 3. from 뒤에 인라인뷰 *** > 테이블
+				   ------------페이징
+	     > where 뒤에 일반 서브쿼리
+		MainQuery
+		WHERE ( SubQuery)
+			   ----------------1 > 결과값을 MainQuery로 전송 > 결과값 출력
+		SQL+SQL = 서브쿼리
+		데이터+데이터 = JOIN
+		
+
+*/	
+/*
+	select max(price) from book;
+	select bookname from book where price =35000;
+	select bookname from book where price=(select max(price) from book)
+														
+*/
+/*
+select empnp,ename,job.hiredate,sal,rownum
+from emp;
+*/
+select *
+from emp e
+where exists(select 1 from emp where deptno=10);
+
