@@ -1,0 +1,124 @@
+-- 179page DDL: 데이터 정의어
+/*
+	SQL
+	 DML: 데이터 조작(처리) > select: 데이터 검색
+	    ㄴrow 단위		     insert: 데이터 추가
+					     update: 데이터 수정
+					     delete: 데이터 삭제 > CRUD
+	 DDL: 데이터 정의어 > create: 생성
+	    ㄴ컬럼 단위	        table - 데이터를 저장하는 공간
+					sqquence - 자동 증가 번호(게시판 > 번호)	
+					view - 가상 테이블 > select 저장
+					index - 검색 최적화 정렬
+					function / procedure / trigger: 5장
+					> autocommit
+					alter: 추가 / 수정 /삭제
+						add, modify, drop
+					delete: 전체 삭제
+					rename: 테이블 이름 변경 = 리펙토링
+					truncate: 삭제 > 테이블은 유지 > 데이터만 삭제 > 잘라내기
+
+	=테이블 만드는 방법 > 식별자
+	      ㄴclass > 멤버변수: column
+		 row > 객체
+	       1) 문자로 시작한다 (알파벳,한글): 운영체제 문제(한글 > 읽는 형식)
+							     --------------------------------------
+							      AWS 서버: 리눅스=호스팅
+			**대소문자 구분 X (오라클 자체에 저장 > 대문자로 저장)
+			**user_tables에 저장
+	       2) table명, column명 > 문자의 갯수: 30byte까지 (한글 10글자)
+		    > 7자 ~ 15자 (freeboard, goods_list, cart): 약간의 의미
+		    > column 이름을 table명을 사용해도 된다
+	       3) 같은 데이터베이스(XE)에서는 table명은 유일해야 된다
+	       4) 키워드 사용 금지: select, order, by....
+	       5) 숫자 사용이 가능( 앞에 사용 금지)
+	       6) 특수문자 사용이 가능( _,$) > _
+		
+			형식) 
+			     create table table_name(
+				컬럼명 데이터형 [제약조건]
+				--------식별자
+				[제약조건]
+			     );	
+	    1. 오라클 지원하는 데이터형
+		1)문자형: 문자,문자열 저장 > 자바:string
+		      char
+		      varchar2
+		      clob
+		2)숫자형: 정수, 실수 > int,double
+		      number
+		3)날짜혀형: date > sysdate > java.util.date
+		      date, timestamp
+		4)기타
+		      bfile / blob
+		------------------------------------------
+		    자바 매핑 > ~VO
+		    char,varchar2,clob > string
+		    number > int, double
+		    date > java.util.date
+		    bfile/blob > inputstream
+	    2. 데이터 유지 = 제약조건 
+		  정형화된 데이터: 규칙에 맞게 저장 > 바로 사용이 가능
+					  구분이 잘되어 있다 > 데이터베이스
+		  반정형화 데이터: 구분된 된 데이터 > XML, HTML, JSON > 크롤링
+		  비정형화 데이터: 규칙도 없고 구분도 없는 데이터: 트위처, facebook
+		  ------------------->분석 > 필요한 데이터만 정형화된 데이터로 변경
+					   ------------------------------------------------------
+					   데이터수집 = 분석 =정형화 = 학습
+		 웹 사이트에 출력된 데이터는 정형화된 데이터이다
+		 -------------데이터베이스에서 출력
+		 제약조건
+		   반드시 입력값을 필요로 하는 경우
+		   1) not null
+			name varchar2(20) not null
+	     	   중복이 없는 값 추가 > null허용
+		   2) unique
+		 	> email/phone: 후보키
+		   3) not null + unique
+			> row 구분자: 숫자 (자동처리), id
+		   4) 다른 테이블과 연결: 외래키 / 참조키
+		   5) 지정된 데이터만 출력
+			check: radio / select(콤보) > 부서명/근무지/장르
+		   6) default: 미리 데이터 설정
+			regdate date default sysdate
+			hit number default 0
+		     > 컬럼에서 제약조건을 한개만 사용하지 않고 여러개 사용이 가능
+		     > 테이블안에서 primary key 한개 설정이 가능, 나중에 설정시에 여러개 설정이 가능
+
+		제약 조건
+		  not null
+		    > 컬럼 데이터형 not null
+		    > 컬럼 데이터형 constraint 제약조건명 not null: 유지보수의 문제
+			> 테이블에 값이 없는 경우
+		 unique
+		    > 컬럼 데이터형 unique
+		    > 컬럼 데이터형, constraint 제약조건명 unique(컬럼명)
+		 check
+		    > 컬럼 데이터형 check(컬러명,in(...))
+		    > 컬럼 데이터형,
+			constraint 제약조건명 check(컬럼명,in(...))
+		 primary key
+		    > 컬럼 데이터형 primary key
+		    > 컬럼 데이터형,
+			constraint 제약조건명 primary key(컬럼명)
+		 foreign key
+		    > 컬럼 데이터형,
+			constraint 제약조건명 foreign key(컬럼명)
+			references 참조테이블(참조컬럼)
+		 default
+		    > 컬럼 데이터형 default 값
+			      ----------
+				varchar2(1~4000), clob, char(1~2000) 
+				number, number(2,1) > 8,2
+				date
+		 형식
+			create table table_name
+			(
+				컬럼명 데이터형 [제약조건] [제약조건]...., > not null, default
+				컬럼명 데이터형 [제약조건] [제약조건]....,
+				컬럼명 데이터형 [제약조건] [제약조건].....,
+				[제약조건] > pk,uk,ck,fk
+				[제약조건]
+			)
+			 
+*/
