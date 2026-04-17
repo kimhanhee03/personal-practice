@@ -1,0 +1,121 @@
+1. 핵심 요약 (DDL 중심)
+  ✔ SQL 분류
+    DML (데이터 조작) → CRUD
+       SELECT (조회)
+       INSERT (추가)
+       UPDATE (수정)
+       DELETE (삭제)
+    DDL (데이터 정의) → 구조 생성/변경
+       CREATE (생성)
+       ALTER (수정: ADD / MODIFY / DROP)
+       DROP (삭제: 테이블 자체 삭제)
+       TRUNCATE (데이터만 삭제, 구조 유지)
+       RENAME (이름 변경)
+
+  ✔ 테이블 생성 기본 구조
+      CREATE TABLE 테이블명 (
+      컬럼명 데이터형 [제약조건],
+      컬럼명 데이터형 [제약조건],
+      ...
+      );
+
+  ✔ 식별자(이름 규칙)
+      문자로 시작 (영문 권장)
+      길이: 최대 30byte
+      같은 DB에서 테이블명 중복 불가
+      예약어 사용 금지 (SELECT, ORDER 등)
+      특수문자: _ 정도만 사용 권장
+      대소문자 구분 X (오라클은 자동 대문자 저장)
+
+   ✔ 데이터 타입
+        문자형: VARCHAR2, CHAR, CLOB
+        숫자형: NUMBER
+        날짜형: DATE, TIMESTAMP
+        기타: BLOB, BFILE
+        → 자바 매핑
+         VARCHAR2 → String
+         NUMBER → int / double
+         DATE → java.util.Date
+
+   ✔ 제약조건 (데이터 무결성 핵심)     
+      NOT NULL: 반드시 값 입력
+      UNIQUE: 중복 불가 (NULL 허용)
+      PRIMARY KEY: NOT NULL + UNIQUE
+      FOREIGN KEY: 다른 테이블 참조
+      CHECK: 값 제한
+      DEFAULT: 기본값 설정
+
+   ✔ 제약조건 예시
+        CREATE TABLE member (
+          id VARCHAR2(20) PRIMARY KEY,
+          name VARCHAR2(30) NOT NULL,
+          email VARCHAR2(50) UNIQUE,
+          gender CHAR(1) CHECK (gender IN ('M','F')),
+          regdate DATE DEFAULT SYSDATE
+          );
+
+
+2. 추가 포인트
+  (1) DROP vs TRUNCATE vs DELETE 차이
+        DELETE → 조건 가능, 롤백 가능 (DML)
+        TRUNCATE → 전체 삭제, 롤백 불가 (DDL)
+        DROP → 테이블 자체 삭제
+
+  (2) PRIMARY KEY 특징
+        테이블당 1개만 존재
+        여러 컬럼 묶어서 가능 (복합키)
+        PRIMARY KEY (col1, col2)
+
+  (3) FOREIGN KEY 특징
+        참조 무결성 유지
+        부모 테이블 먼저 생성 필요
+
+  (4) DEFAULT 주의
+        INSERT 시 값 안 넣으면 자동 적용
+
+  (5) INDEX / VIEW
+        INDEX → 검색 속도 향상
+        VIEW → SELECT 저장된 가상 테이블
+
+--------------------------------------------------------
+⭐⭐⭐⭐⭐
+  1. SQL 분류: DDL은 구조, DML은 데이터 조작
+
+  2. DDL 종류
+       CREATE / ALTER / DROP / TRUNCATE / RENAME
+
+  3. DELETE vs TRUNCATE vs DROP
+       DELETE: 데이터 일부 삭제, 롤백 가능
+       TRUNCATE: 전체 삭제, 롤백 불가
+       DROP: 테이블 삭제
+
+  4. PRIMARY KEY
+       NOT NULL + UNIQUE, 테이블당 1개
+
+  5. FOREIGN KEY
+       다른 테이블 참조, 데이터 무결성 유지
+
+  6. 제약조건 5개
+       NOT NULL / UNIQUE / PRIMARY KEY / FOREIGN KEY / CHECK / DEFAULT
+
+  7. 테이블 생성 문법
+        CREATE TABLE 테이블명 (
+        컬럼명 데이터형 제약조건
+        );
+
+  8. 데이터 타입 3개만 기억
+       VARCHAR2 / NUMBER / DATE
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    
+
+
