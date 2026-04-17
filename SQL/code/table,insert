@@ -1,0 +1,36 @@
+create table board
+( 
+no number,
+name varchar2(51) CONSTRAINT board_name_nn not null, 
+subject varchar2(2000)CONSTRAINT board_subject_nn not null,
+content clob CONSTRAINT board_content_nn not null, 
+pwd varchar2(10) CONSTRAINT board_pwd_nn not null, 
+regdate date default sysdate, hit number default 0,
+CONSTRAINT board_no_pk primary key(no) 
+);
+
+
+insert into board values(1,'홍길동','crud','ddl(create),dml(insert)','1234',sysdate,0);
+
+insert into board values(2,'홍길동',' ','ddl(create),dml(insert)','1234',sysdate,0);
+
+select *from board;
+
+update board set
+name='심청이' , subject='update 명령어 배우는 중'
+where no=2;
+
+delete from board;
+
+rollback;
+
+commit;
+
+insert into board values((select nvl(max(no)+1,1) from board),'홍길동','crud','ddl(create),dml(insert)','1234',sysdate,0);
+select * from board;
+
+select * from board
+order by no desc
+offset 20 rows fetch next 10 rows only;
+
+desc board;
