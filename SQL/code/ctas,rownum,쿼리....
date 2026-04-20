@@ -1,0 +1,185 @@
+📌 1. 테이블 생성 (CTAS: Create Table As Select)
+✔ 기본 개념
+create table emp_copy
+as select * from emp;
+
+👉 기존 테이블 구조 + 데이터 복사
+
+✔ 구조만 복사
+create table emp_copy2
+as select * from emp where 1=2;
+
+👉 조건이 항상 거짓 → 데이터 없이 구조만 생성
+
+✔ 조인 결과로 테이블 생성
+create table emp_copy3
+as
+select empno,ename,job,hiredate,sal,dname,loc,grade
+from emp, dept, salgrade
+where emp.deptno = dept.deptno
+and sal between losal and hisal;
+
+👉 여러 테이블 조인 결과를 새 테이블로 저장
+
+📌 사용처
+
+백업 테이블
+테스트용 데이터 생성
+집계/조인 결과를 따로 저장
+📌 2. ROWNUM (행 번호 & 제한)
+✔ 전체 + 번호 출력
+select empno, ename, sal, rownum from emp;
+✔ 상위 N개 조회
+where rownum <= 5;
+
+👉 단순 Top-N 조회
+
+❗ 정렬 후 상위 N개 (중요)
+select *
+from (
+    select * from emp order by sal desc
+)
+where rownum <= 5;
+
+👉 핵심
+
+rownum은 정렬 전에 붙는다
+그래서 반드시 인라인뷰 사용
+
+📌 사용처
+
+인기순, 조회수 TOP
+급여 상위, 매출 상위
+📌 3. 페이징 처리 (Paging)
+✔ ROWNUM 방식
+select *
+from (
+    select empno, ename, rownum as num
+    from (
+        select * from emp order by empno asc
+    )
+)
+where num between 1 and 5;
+
+👉 페이지 나누기
+
+✔ 최신 방식 (권장)
+select *
+from emp
+order by empno
+offset 0 rows fetch next 5 rows only;
+
+📌 사용처
+
+게시판
+리스트 페이지
+API 페이징
+📌 4. 서브쿼리 (Subquery)
+✔ 단일행 서브쿼리
+select *
+from emp
+where deptno = (
+    select deptno
+    from emp
+    where sal = (select max(sal) from emp)
+);
+
+👉 “최고 연봉자와 같은 부서 직원”
+
+📌 해석 순서
+
+max(sal) → 최고 급여
+해당 사원의 deptno
+같은 dept 조회
+✔ 다중행 서브쿼리
+where deptno in (select deptno from emp);
+
+👉 결과가 여러 개 → IN 사용
+
+📌 5. ANY / ALL (중요 개념)
+✔ ANY
+> ANY → 최소값 기준
+< ANY → 최대값 기준
+
+예:
+
+deptno > any(10,20,30) → 10보다 크면 됨
+✔ ALL
+> ALL → 최대값보다 커야
+< ALL → 최소값보다 작아야
+
+📌 한 줄 정리
+
+연산	의미
+ANY	조건 중 하나만 만족
+ALL	모든 조건 만족
+📌 6. 스칼라 서브쿼리 (SELECT 안에 SELECT)
+✔ JOIN 대체
+select empno,
+       (select dname from dept where deptno=emp.deptno) as dname
+from emp;
+
+👉 컬럼처럼 사용
+
+📌 특징
+
+반드시 결과 1개
+JOIN보다 직관적일 수 있음
+
+📌 단점
+
+성능 떨어질 수 있음
+📌 7. JOIN vs 서브쿼리
+✔ JOIN (권장)
+from emp, dept
+where emp.deptno = dept.deptno;
+
+👉 성능 좋고 표준적
+
+✔ 스칼라 서브쿼리
+(select dname ...)
+
+👉 간단하지만 반복 실행 → 느릴 수 있음
+
+📌 8. CASE + 서브쿼리
+select ename,
+ case 
+    when sal > (select avg(sal) from emp)
+    then 'high'
+    else 'low'
+ end as grade
+from emp;
+
+👉 평균보다 높은지 판단
+
+📌 사용처
+
+등급 나누기
+조건 분류
+데이터 라벨링
+📌 9. 핵심 요약 (시험/실무 포인트)
+
+✔ CTAS
+→ 테이블 복사 / 생성
+
+✔ ROWNUM
+→ Top-N, 페이징 (정렬 시 인라인뷰 필수)
+
+✔ OFFSET FETCH
+→ 최신 페이징 방식
+
+✔ 서브쿼리
+→ 조건 안에 SELECT
+
+✔ ANY / ALL
+→ min/max 개념으로 이해
+
+✔ 스칼라 서브쿼리
+→ 컬럼 대신 사용 (JOIN 대체 가능)
+
+✔ CASE
+→ 조건 분기
+
+🔥 한 줄 핵심 정리
+
+👉 "정렬 후 rownum = 인라인뷰 필수" 이거 하나는 반드시 기억하세요
