@@ -1,0 +1,106 @@
+--4장: 내장 함수/서브쿼리/view/index/시퀸스/시노님
+/*
+	3장 > 142page ~ 178page
+	SQL 
+	***데이터베이스 연동: 구조 파악
+		1)Table: 데이터 저장하는 메모리(파일)
+		   DESC table_name
+		   SELECT * FROM user tables
+		   FROM table_name='반드시 대문자'
+		   SELECT * FROM user_constraints
+		   FROM table_name='대문자'
+		   > 데이터형
+			NUMBER: 숫자 저장 > int, double
+			CHAR / VARCHAR2 / CLOB >String
+			DATE / TIMESTAMP > Date
+		   > 컬럼확인 / 데이터형
+	-DML
+	    ***DISTINCT: 중복 없는 데이터(장르.부서명,카테고리)
+	    ***문자열 결합 ||
+	    ***별칭 > 컬럼 "별칭", 컬럼 AS 별칭 > MyBatis에서 주로 사용
+							> 함수, 컬럼 길다, VO변수명과 다른 경우
+	    ***오라클 명령어는 대소문자 구분이 없다(키워드 대문자)
+		(단 실제 저장된 데이터는 대소문자 구분)
+	    select: 데이터 검색
+		select * | column_list
+	    insert: 데이터 추가
+		     insert into table_name values(값) > 모든 값 주입
+		     > default가 적용이 안됨 > default까지 포함
+	    update: 데이터 수정
+	    delete: 데이터 삭제
+			where 조건 > row단위 삭제
+	    연산자:
+		산술 연산자: +,-,*,/
+				   +는 0으로 나눌 수 없다. 정수/정수=실수
+		비교 연산자=. ~=(<>), <,>, <=, >=
+			  	   ***숫자, 문자, 날짜 비교 가능
+		논리 연산자: AND,OR
+		between ~and: 기간, 범위 > 페이징에서 주로 등장
+		in: or여러개 한번에 처리 컬럼 IN(값) 
+		not: 부정 연산자(!를 사용하면 안도니다)
+			not in, no liike, not betweenn~
+		null: 연산처리가 안된다 > 지정
+			 is null / is not null
+		like: 연산처리가 안된다  >지정	
+		문자 함수
+		 substr
+		 instr
+		 length
+		 숫지 함수
+			ceil
+			round
+			mod
+		날짜함수
+r		 rlqrL
+			
+	-DDL: 데이터 정의어
+		craete: 데이터 저장소
+			 alter 
+		drop: create 는 반드시 drop으로 삭제
+		truncate:데이터 잘라내기
+		rename: 데이블 이름, 컬럼 변경	
+	-DCL
+	-TCL
+*/
+create table 판맨전표(
+	전표번호 varchar2(13),
+	판매일자 date default sysdate constraint 판맨 전표_판매일자_nn no null,
+	고객명 varchar(51) constraint 판매전표_고객명_nn not null,
+	총액 number,
+	constraint 판매 전표_전표번호_pk primary key(전표번호),
+	constraint 판매전표_총액_ck check(총액 > 0)
+	
+);
+create table 제품(
+	제품번호 varchar2(13),
+	제품명 varchar2(100) constraint 제품_제품명_nn no null,
+	제품 단가 number,
+	constraint 제품_제품번호_pk primary key(제품번호),
+	constraint 제품_제품단가_ck check(제품단가 > 0)
+);
+create table 전표상세(
+	전표번호 varchar2(13),
+	제품번호 varchar2(100),
+	수량 number constraint 전표상세_수량_nn no null,
+	단가 number constraint 전표상세_단가_nn no null,
+	금액 number,
+	constraint 전표상세_전표번호_pk primary key(전표번호),
+	constraint 전표상세_금액_ck check(금액 > 0),
+	constraint 전표상세_전표번호_fk foreign key(전표번호)
+	references 판매전표(전표번호),
+	constraint 전표상세_제품번호_fk foreign key(제품번호)
+	references 판매전표(전표번호),
+);
+--데이터형 크기 변경/컬럼명 변경
+alter table 판매전표 modify 전표번호 vatchar(20);
+--추가 
+alter table 판매전표 add 고객주소 varchar2(200) default ' ' constraint 판맨전표_고객주소_nn not null;
+--컬럼명 변경
+alter table 판매전표 rename column 고객주소 to 주소;
+--삭제
+alter table 판맨전표 drop column 고객주소;
+--데이터 삭제
+truncate table 판매전표;
+--전체 삭제
+drop table 테이블이름;
+
