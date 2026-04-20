@@ -8,3 +8,5 @@ crud 응용 프로젝트
 
 procedure vs trigger 차이 
   > 면접에서 많이 물어봄
+
+select는 join이랑 서브쿼리가 중요함
