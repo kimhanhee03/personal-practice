@@ -1,1 +1,122 @@
+1. 핵심 요약 (ROWNUM + 서브쿼리 + VIEW/INDEX 등)
+  📌 ROWNUM (중요)
+    오라클 가상 컬럼 (모든 테이블에 존재)
+    조회된 결과에 순서대로 번호 부여
+
+   사용처
+     페이징
+     Top-N (상위 N개)
+     게시판 이전/다음
+
+  ✔ 기본 사용
+     SELECT * FROM emp WHERE ROWNUM <= 10;
+
+  핵심 특징 (중요)
+    조건 순서 영향 받음
+    ROWNUM > 10 → ❌ 결과 없음
+      해결 방법 (인라인뷰 사용)
+          SELECT *
+          FROM (
+              SELECT ROWNUM rnum, t.*
+              FROM (SELECT * FROM emp ORDER BY sal DESC) t
+               )
+            WHERE rnum BETWEEN 11 AND 20;
+         정렬 후 → ROWNUM 부여해야 함
+
+  📌 서브쿼리
+    ✔ 1. WHERE 서브쿼리 (중첩)
+      SELECT *
+      FROM emp
+      WHERE sal > (SELECT AVG(sal) FROM emp);
+
+    ✔ 종류
+      1) 단일행 서브쿼리
+          결과 1개
+          연산자: =, >, <
+      2) 다중행 서브쿼리
+          결과 여러개
+          연산자: IN, ANY, ALL
+      3) EXISTS
+          존재 여부 확인
+            WHERE EXISTS (SELECT 1 FROM ...)
+
+  📌 스칼라 서브쿼리 (SELECT 안에)
+       컬럼 대신 사용
+       반드시 결과 1행 1컬럼
+          SELECT ename,
+           (SELECT deptno FROM dept WHERE deptno = emp.deptno) AS dno
+          FROM emp;
+
+  📌 인라인 뷰 (FROM 안에)
+       서브쿼리를 테이블처럼 사용
+          SELECT *
+          FROM (SELECT * FROM emp WHERE sal > 2000);
+       특징
+         임시 테이블 역할
+         페이징, 정렬, 필터링에 필수
+
+  📌 VIEW (⭐⭐)
+       저장된 쿼리 (가상 테이블)
+          CREATE VIEW v_emp AS
+          SELECT * FROM emp;
+       장점
+         보안
+         복잡한 쿼리 단순화
+
+  📌 INDEX (⭐⭐⭐)
+      검색 속도 향상
+        CREATE INDEX idx_emp_sal ON emp(sal);
+      특징
+        SELECT 빠름
+        INSERT/UPDATE 느려짐
+
+  📌 SEQUENCE (⭐⭐⭐)
+       자동 증가 번호
+         CREATE SEQUENCE seq_test;
+       사용
+         seq_test.NEXTVAL
+         seq_test.CURRVAL
+
+  📌 SYNONYM (시노님)
+       테이블 별칭 (다른 이름)
+        CREATE SYNONYM e FOR emp;
+
+============================================
+⭐⭐⭐⭐⭐
+1. ROWNUM 핵심
+  “조회된 순서대로 번호 붙인다”
+
+2. 페이징 공식
+  SELECT *
+  FROM (
+    SELECT ROWNUM rnum, t.*
+    FROM (SELECT * FROM emp ORDER BY sal DESC) t
+  )
+  WHERE rnum BETWEEN 11 AND 20;
+
+3. 서브쿼리 종류
+    단일행 → = > <
+    다중행 → IN ANY ALL
+    존재 → EXISTS
+
+4. 스칼라 서브쿼리
+  “SELECT 안에 쓰는 1행 1컬럼”
+
+5. 인라인 뷰
+  “FROM 안에 쓰는 서브쿼리 (테이블처럼 사용)”
+
+6. VIEW
+  “저장된 SELECT (가상 테이블)”
+
+7. INDEX
+  “검색 빠르게 / 대신 쓰기 느려짐”
+
+8. SEQUENCE
+  “자동 증가 값 생성 (NEXTVAL)”
+
+9. EXISTS
+  “데이터 존재 여부 체크 (속도 좋음)”
+
+10. 가장 중요한 한 문장
+  ROWNUM은 정렬 전에 붙는다 → 페이징은 반드시 인라인뷰 사용
 
