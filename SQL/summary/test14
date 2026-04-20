@@ -1,1 +1,69 @@
+1. VIEW 핵심 요약
+  📌 VIEW란?
+    SELECT 문을 저장한 가상 테이블
+      실제 데이터 ❌ (저장 안됨)
+      테이블처럼 SELECT 가능
+  📌 특징
+     데이터는 원본 테이블에 존재
+     VIEW는 결과만 보여줌
+     복잡한 SQL을 단순화
+  📌 장점
+       SQL 간결화
+       재사용 가능
+       보안 (컬럼 제한 가능)
+       JOIN/서브쿼리 숨김
+  📌 종류
+     1) 단순 VIEW
+       1개 테이블
+       DML 가능
+     2) 복합 VIEW
+       JOIN / 서브쿼리 포함
+       DML 제한 많음 (거의 불가)
+     3) 인라인 VIEW
+       FROM 안에 사용
+       1회용 (저장 X)
+  📌 생성
+       CREATE VIEW v_emp
+       AS
+       SELECT ename, sal FROM emp;
+  📌 수정
+       CREATE OR REPLACE VIEW v_emp
+       AS
+       SELECT ename FROM emp;
+  📌 삭제
+       DROP VIEW v_emp;
+  📌 VIEW 조회
+       SELECT text FROM user_views
+       WHERE view_name = 'V_EMP';
+  📌 DML 가능 여부
+    단순 VIEW  O
+    복합 VIEW  X
+     주의 - VIEW에서 수정하면 → 원본 테이블 변경됨
+  📌 옵션
+    WITH READ ONLY → 수정 불가
+    WITH CHECK OPTION → 조건 유지하면서 수정
 
+===================================
+⭐⭐⭐⭐⭐
+1. VIEW 정의
+  SELECT 문을 저장한 가상 테이블 (데이터는 없음)
+
+2. VIEW 사용하는 이유
+  복잡한 SQL(JOIN, 서브쿼리)을 단순화 + 보안
+
+3. VIEW에서 DML
+  단순 VIEW만 가능, 실제 테이블이 변경됨
+
+4. VIEW 수정 방법
+  CREATE OR REPLACE VIEW
+
+5. 핵심 옵션
+  WITH READ ONLY → 수정 불가
+  WITH CHECK OPTION → 조건 유지
+
+6. 가장 중요한 한 문장
+  VIEW는 데이터를 저장하지 않고 SELECT 문만 저장한다
+
+
+
+    
