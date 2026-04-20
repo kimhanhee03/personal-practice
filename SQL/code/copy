@@ -1,0 +1,143 @@
+create table emp_copy
+as 
+select *from emp;
+select * from emp_copy;
+
+ create table emp_copy2
+ as
+ select *from emp
+ where 1=2;
+ 
+ create table emp_copy3
+ as
+ select empno,ename,job,hiredate,sal,dname,loc,grade
+ from emp, dept,salgrade
+ where emp.deptno=dept.deptno
+ and sal between losal and hisal;
+ select * from emp_copy3;
+ 
+ 
+ --emp에 데이터 출력 rownum을 포함 출력
+ select empno,ename,job,hiredate,sal,rownum
+ from emp;
+ --사원 5명만 출력 > HIT / 별점 / 인기순위 ...
+ select  empno,ename,job,hiredate,sal,rownum
+ from emp
+ where rownum <=5;
+ --급여가 많은 상위 5명만 출력
+ --rownum을 변경
+ --rownum은 select를 이용해서 변경 > 테이블대신 select > 인라인뷰
+ --한번 사용후에 버린다 > 메모리에 저장이 안된다 > 보안
+select empno,ename,job,hiredate,sal,rownum
+from( select empno,ename,job,hiredate,sal
+        from emp order by sal desc)
+where rownum<=5;
+--실제 실무에서 페이징
+select empno,ename,job,hiredate,sal,num
+from(select empno,ename,job,hiredate,sal,rownum as num
+        from( select empno,ename,job,hiredate,sal
+        from emp order by empno asc))
+        where num between 1 and 5;
+--최근
+select empno,ename,job,hiredate,sal
+from emp
+order by empno asc
+offset 0 rows fetch next 5 rows only;
+
+
+--emp에서 급여가 가장 많은 사원과 같이 근무하는 부서의 사원 정보
+/*
+    급여가 가장 많은 사원
+    근무하는 부서의 사원 정보
+*/
+select max(sal)
+from emp;
+
+select deptno 
+from emp
+where sal=5000;
+
+select *
+from emp
+where deptno=10;
+
+select *
+from emp
+where deptno=(select deptno
+from emp
+where sal=(select max(sal) form emp));
+
+--단일행 서브쿼리
+--SQL+SQL
+--자바에서 오라클 연동 > SQL문장을 줄여서 사용
+--다중행
+select *
+from emp
+where dpetno in(10,20,30);
+
+select *
+from emp
+where deptno in(select distinct deptno from emp);
+
+-- < (10,20,30) => 30
+select *
+from emp
+where deptno < any(select distinct deptno from emp);
+-- > (10,20,30) => 30
+select *
+from emp
+where deptno > any(select distinct deptno from emp);
+-- >=(10,20,30)= > 30
+select *
+from emp
+where deptno >= any(select distinct deptno from emp);
+-- <=(10,20,30) => 10
+select *
+from emp
+where deptno <= any(select distinct deptno from emp);
+
+/*
+    > any(some) => min
+    < any(some) => max
+    
+    > all > max
+    < all > min
+    => any/all/some > 결과값중에 한개 선택 (min,max)
+*/
+/*
+    스칼라 서브쿼리: join대체
+    select (select~) 컬럼 대신 사용
+    from emp;
+*/
+--사번,이름,직위,입사일,급여,부서명,근무지 > join
+select empno,ename,job,hiredate,sal,dname,loc
+from emp,dept
+where emp.deptno=dept.deptno;
+
+select empno,ename,job,hiredate,sal,
+(select dname from dept where deptno=emp.deptno) as dname,
+(select dname from dept where deptno=emp.deptno) as loc
+from emp;
+
+desc orders;
+select *from orders;
+--컬러 대신 사용 > 반드시 결과값 1개만 가능하다
+select orderid,name,bookname,saleprice,orderdate
+from orders o,customer c,book b
+where o.custid=c.custid
+and  o.bookid=b.bookid;
+
+select orderid,
+    (select name from customer where custid=orders.custid) as name,
+    (select name from customer where custid=orders.custid) as book,
+    saleprice,orderdate
+from orders;
+
+--sql문장이 길어진다 / 단순하게 join,집계함수 연계
+select ename,
+ case 
+    when sal > (select avg(sal) from emp)
+    then 'high'
+    else 'low'
+  end as grade
+from emp;
