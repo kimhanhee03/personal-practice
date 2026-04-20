@@ -1,1 +1,26 @@
+1) JOIN vs 서브쿼리
+  JOIN → 성능 좋음 (실무 주력)
+  서브쿼리 → 가독성 좋음
+
+
+2) VIEW
+  가상 테이블
+  보안 + 복잡한 쿼리 단순화
+
+
+3) INDEX ⭐⭐⭐
+  검색 속도 향상
+  대신 INSERT/UPDATE 느려짐
+
+
+4) SEQUENCE ⭐⭐⭐
+  자동 증가 번호 생성
+  CREATE SEQUENCE seq_test;
+
+
+5) COMMIT / ROLLBACK
+  COMMIT → 저장
+  ROLLBACK → 취소
+
+
 
