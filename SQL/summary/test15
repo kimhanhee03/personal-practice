@@ -1,0 +1,128 @@
+1. 인덱스 핵심 개념 (정리본)
+    인덱스(Index): 데이터를 빠르게 찾기 위한 구조 (검색 속도 향상)
+    대신 저장공간 증가 + DML(INSERT/UPDATE/DELETE) 성능 저하
+    기본적으로 B-Tree 구조 사용
+    PRIMARY KEY / UNIQUE → 자동 생성
+    → 인덱스 = “책의 목차” (전체 탐색 대신 빠르게 위치 찾기)
+
+
+2. 언제 인덱스를 써야 하는가
+    데이터가 많을 때 (수만~수백만 이상)
+    WHERE 조건에 자주 사용되는 컬럼
+    JOIN에 사용되는 컬럼
+    ORDER BY / GROUP BY 사용 컬럼
+    값 구분도가 높은 컬럼 (카디널리티 높음) ← 중요 추가
+      ex)  
+        WHERE name = ?
+        JOIN emp.deptno = dept.deptno
+        ORDER BY score DESC
+
+
+3. 인덱스 생성 / 삭제 / 관리
+  -- 생성
+  CREATE INDEX idx_name ON table(column ASC|DESC);
+
+  -- 복합 인덱스
+  CREATE INDEX idx_multi ON table(col1, col2 DESC);
+
+  -- 삭제
+  DROP INDEX idx_name;
+
+  -- 재구성 (성능 저하 시)
+  ALTER INDEX idx_name REBUILD;
+
+    네이밍 관례: idx_테이블명_컬럼명
+
+
+4. 인덱스 동작 원리 (B-Tree)
+  정렬된 트리 구조
+  이진 탐색처럼 범위를 줄여가며 검색
+    동작
+      1. 루트 → 비교
+      2. 범위 좁힘
+      3. 리프 노드 도달
+      4. ROWID로 실제 데이터 접근
+      핵심: 인덱스는 결국 ROWID 찾는 용도
+
+
+5. 인덱스가 적용되는 경우 (중요)
+  ✔ 조건
+    WHERE / JOIN / ORDER BY / GROUP BY
+    컬럼 그대로 사용 (가공 X)
+    인덱스 순서와 일치
+     ex)
+      CREATE INDEX idx_food ON food(type, score DESC);
+      SELECT * 
+      FROM food
+      WHERE type = '한식'
+      ORDER BY score DESC;
+
+
+6. 인덱스가 안 타는 경우 (매우 중요)
+    1. 함수 사용
+      WHERE UPPER(name) = 'A' X
+    2. 앞에 % LIKE
+      WHERE name LIKE '%김' X
+    3. 연산 포함
+      WHERE score + 1 > 5 X
+    4. 조건 없음 (Full Scan)
+      SELECT * FROM table X
+    5. 데이터 적음 (Full Scan이 더 빠름)
+    6. 값이 거의 동일 (낮은 카디널리티)
+
+
+7. 인덱스 단점
+    저장공간 증가
+    DML 성능 저하
+    너무 많으면 오히려 느림
+    → 권장: 테이블당 4~5개 정도
+
+
+8. 인덱스 종류 (정리)
+    1) B-Tree (기본)
+      일반적인 검색, 범위, 정렬
+    2) Bitmap Index
+      값 종류 적을 때 (Y/N, 성별)
+      분석용 (DW, BI)
+      DML 많으면 위험 (락 문제)
+    3) Function-Based Index (보완 추가)
+      CREATE INDEX idx_upper_name ON emp(UPPER(name));
+      → 함수 써도 인덱스 사용 가능하게 함
+    4) 복합 인덱스
+      여러 컬럼 조합
+      앞 컬럼이 중요 (선행 컬럼)
+
+==========================
+⭐⭐⭐⭐⭐
+1. 인덱스 한줄 정의
+  인덱스는 B-Tree 기반으로 데이터를 빠르게 찾기 위해 ROWID를 찾는 구조
+
+2. 언제 쓰냐
+  WHERE
+  JOIN
+  ORDER BY
+
+3. 언제 안 쓰냐 (암기 필수 ⭐)
+  함수 사용
+  LIKE '%'
+  연산 포함
+  데이터 적음
+  값이 단조로움 (Y/N)
+
+4. 장단점
+장점
+  조회 속도 향상
+단점
+  INSERT/UPDATE/DELETE 느려짐
+  공간 많이 사용
+
+5. 복합 인덱스 핵심
+  “앞 컬럼부터 사용해야 인덱스 탄다”
+
+6. 핵심
+  인덱스는 “조회는 빠르게, 변경은 느리게” 만드는 구조다
+  
+    
+      
+
+
