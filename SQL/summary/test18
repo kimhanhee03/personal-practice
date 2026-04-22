@@ -1,0 +1,128 @@
+1. PL/SQL 한방 정리 (핵심 구조)
+  PL/SQL = SQL + 프로그래밍 (절차적 처리)
+    DECLARE   -- 변수 선언
+    BEGIN     -- 실행 (SQL + 제어문)
+    END;
+     /
+  SQL만으로 부족한 로직 처리 (IF, 반복문) 가능
+  DB 안에서 실행 → 속도 빠름 + 보안 좋음
+
+
+2. PL/SQL 구성 요소
+  1) FUNCTION vs PROCEDURE vs TRIGGER
+    구분	설명
+      FUNCTION	반환값 있음 (RETURN)
+      PROCEDURE	반환값 없음
+      TRIGGER	자동 실행 (INSERT/UPDATE/DELETE 시)
+       → Function은 리턴, Procedure는 작업, Trigger는 자동 실행
+
+  2) 변수 종류
+      1. 일반 변수
+        vname VARCHAR2(20);
+
+      2. %TYPE: 컬럼 타입 그대로 가져옴 > 컬럼 타입 바뀌어도 자동 반영
+        vname emp.ename%TYPE;
+
+      3. %ROWTYPE: 테이블 한 행 전체
+        vemp emp%ROWTYPE;
+
+      4. RECORD: 여러 테이블 JOIN 결과 저장
+
+      5. CURSOR: 여러 행 처리 (핵심) ⭐
+
+
+3. SELECT INTO
+    SELECT 컬럼 INTO 변수 FROM 테이블 WHERE 조건;
+     특징
+       반드시 1행만 조회
+       여러 행이면 에러 발생
+
+
+4. 제어문
+  IF
+    IF 조건 THEN
+    END IF;
+  IF ~ ELSE
+    IF 조건 THEN
+    ELSE
+    END IF;
+  IF ~ ELSIF ⭐
+    IF 조건 THEN
+    ELSIF 조건 THEN
+    ELSE
+    END IF;
+  CASE ⭐ (더 많이 사용됨)
+    CASE 값
+     WHEN 값1 THEN 결과
+     WHEN 값2 THEN 결과
+     ELSE 결과
+      END;
+
+5. 반복문 (3개만 기억)
+  LOOP (do-while 느낌)
+     LOOP
+     EXIT WHEN 조건;
+     END LOOP;
+  WHILE
+     WHILE 조건 LOOP
+     END LOOP;
+  FOR ⭐ (제일 많이 사용)
+     FOR i IN 1..10 LOOP
+     END LOOP;
+
+
+6. CURSOR (여러 행 처리할 때 필수)
+  기본 구조
+    CURSOR cur IS SELECT * FROM emp;
+    OPEN cur;
+    FETCH cur INTO 변수;
+    CLOSE cur;
+  실무형 (FOR문 사용 ⭐)
+    FOR v IN cur LOOP
+    END LOOP;
+
+
+================================
+1. PL/SQL 정의
+  "SQL에 IF, 반복문을 추가한 절차형 언어"
+
+2. 구조
+  DECLARE → BEGIN → END
+
+3. FUNCTION / PROCEDURE / TRIGGER
+  FUNCTION → 리턴 있음
+  PROCEDURE → 리턴 없음
+  TRIGGER → 자동 실행
+
+4. 변수 핵심 3개 ⭐⭐⭐
+    %TYPE → 컬럼 1개
+    %ROWTYPE → 행 전체
+    CURSOR → 여러 행
+
+5. SELECT INTO
+    무조건 1행만 가능
+
+6. 제어문
+    IF / ELSIF
+    CASE (더 많이 사용)
+
+7. 반복문
+    FOR
+
+8. CURSOR
+    여러 행을 처리하기 위한 반복 구조
+
+9. PL/SQL 장단점
+    장점
+       빠름 (DB 내부 실행)
+       보안 좋음
+    단점
+      유지보수 어려움
+      가독성 낮음
+
+      
+        
+      
+
+
+
