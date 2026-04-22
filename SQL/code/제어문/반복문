@@ -1,0 +1,110 @@
+/*
+    반복문
+        1. 기본 loop
+            형식)
+                loop
+                  처리문장
+                    반복으로 수행되는 문장
+                  exit[조건] > 종료 > do~while
+                  end loop;
+        2. while
+            형식)
+                while 조건 loop
+                    처리문장
+                    처리문장
+                    ...
+                    end loop;
+        ***3. for
+            형식) 
+                ex)
+                    for i in 1..9 loop > 1,2,3,...
+                    for i in reverse 1..9 loop > 9,8,7...
+                for 변수 in start..end loop
+                     처리문장
+                     ..
+                end loop;
+                
+                 for 변수 in reverse start..end loop
+                     처리문장
+                     ..
+                end loop;
+        > function / trigger / procedure > 제작하지 않으면 쓸일이 없다
+        > cursor
+        > 함수/트리거
+ */
+--loop (do~while)
+declare
+ sno number:=1; --int i=1
+ eno number:=10;
+ begin
+    loop
+    --반복문장 수행
+    dbms_output.put_line(sno);
+    --증가값 i++
+    sno:=sno+1;
+    --종료
+    exit when sno>eno;
+    end loop;
+ end;
+ /
+ 
+ --while
+ /*
+     while 조건 loop
+     반복 수행문장
+     ..
+     end loop
+     
+     값을 대입 변수:=값
+     sno:=sno+1 => sno++
+*/
+declare
+    no number:=1;
+begin
+    while no<=10 loop
+    dbms_output.put(no ||' ');
+   
+    no:=no+1;
+    end loop;
+         dbms_output.new_line;
+end;
+/
+
+--for
+declare
+begin
+ for i in 1..10 loop
+ dbms_output.put(i||' ');
+ end loop;
+  dbms_output.new_line;
+end;
+/
+--cursor > 데이터를 모아서 출력
+declare
+begin
+ for i in reverse 1..10 loop
+ dbms_output.put(i||' ');
+ end loop;
+  dbms_output.new_line;
+end;
+/
+
+--1~100까지 짝수합 / 홀수합 / 총합
+declare
+    total number:=0;
+    even number:=0;
+    odd number:=0;
+begin
+    for i in 1..100 loop
+    total:=total+i;
+    if mod(i,2)=0 then
+    even:=even+i;
+    else
+    odd:=odd+i;
+    end if;
+    end loop;
+    dbms_output.put_line('1~100 총합:'||total);
+    dbms_output.put_line('1~100 짝수합:'||even);
+    dbms_output.put_line('1~100 홀수합:'||odd);
+end;
+/
