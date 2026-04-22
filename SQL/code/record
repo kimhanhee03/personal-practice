@@ -1,0 +1,46 @@
+--사용자 정의 데이터형 record > join > dba
+--%type / cursor
+/*
+    형식)
+       > 자바의 vo
+       > typescript: interface
+       type record명 is record(
+            변수 설정
+       );
+       record 변수 선언 > row 1개만 받을 수 있다
+*/
+
+declare
+ --record 선언
+ type empDept is record(
+    empno emp.empno%type,
+    ename emp.ename%type,
+    job emp.job%type,
+    hiredate emp.hiredate%type,
+    sal emp.sal%type,
+    dname dept.dname%type,
+    loc dept.loc%type,
+    grade salgrade.grade%type
+ );
+ --record 변수 선언
+ ed empDept;
+ begin
+    --데이터 값 > inner join(교집합) > ansi
+    select empno,ename,job,hiredate,sal,dname,loc,grade
+           into ed
+    from emp join dept on emp.deptno=dept.deptno
+    join salgrade
+    on sal between losal and hisal
+    where empno=&사번; --값을 하나밖에 못얻음 그래서 조건을 검
+    
+    dbms_output.put_line('***** 결과 *****');
+    dbms_output.put_line('사번:'||ed.empno);
+    dbms_output.put_line('이름:'||ed.ename);
+    dbms_output.put_line('직업:'||ed.job);
+    dbms_output.put_line('고용일:'||ed.hiredate);
+    dbms_output.put_line('급여:'||ed.sal);
+    dbms_output.put_line('부서명:'||ed.dname);
+    dbms_output.put_line('근무지:'||ed.loc);
+    dbms_output.put_line('등급:'||ed.grade); 
+ end;
+ /
