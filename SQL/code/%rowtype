@@ -1,0 +1,21 @@
+--한개의 테이블의 컬럼 전체 데이터형 읽기 > %rowtype
+--변수 테이블명%rowtype > 구조체 > 클래스
+declare
+   vemp emp%rowtype;
+begin
+    --7900에 해당되는 row전체값을 받는다
+    select * into vemp
+    from emp
+    where empno=&사번; --& = 스캐너
+    
+    --출력
+    dbms_output.put_line('***** 결과 *****');
+    dbms_output.put_line('사번:'||vemp.empno);
+    dbms_output.put_line('이름:'||vemp.ename);
+    dbms_output.put_line('직업:'||vemp.job);
+    dbms_output.put_line('고용일:'||vemp.hiredate);
+    dbms_output.put_line('급여:'||vemp.sal);
+    dbms_output.put_line('부서번호:'||vemp.deptno);
+
+end;
+/
