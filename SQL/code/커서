@@ -1,0 +1,43 @@
+/*
+    반복문 > 여러개의 row를 출력 할때 사용
+    cursor: row여러개를 저장하는 공간
+    1.커서 선언
+        cursor 커서명 is 
+            select ~~
+    2.커서 열기
+        open 커서명 
+    3.커서안에 데이터를 읽기(추출)
+        fetch
+    4.출력
+        dbms_output.put_line
+    5.커서 닫기
+        close 커서명
+*/
+declare
+ vemp emp%rowtype;
+ cursor cur is 
+  select * from emp; --커서 선언
+begin
+    --커서 열기
+    open cur;
+    --fetch: 데이터 추출
+    loop
+    fetch cur into vemp;
+    --종료 시점
+    exit when cur%notfound; -- 데이터가 없을때까지 출력
+    --출력
+    dbms_output.put_line(vemp.empno||' '||vemp.ename||' '||vemp.job);
+    end loop;
+    close cur;
+end;
+/
+--for
+declare
+ vemp emp%rowtype;
+ cursor cur is 
+ select *from emp;
+ begin
+ for vemp in cur loop
+ dbms_output.put_line(vemp.empno||' '||vemp.ename||' '||vemp.job);
+ end loop;
+ end;
