@@ -1,0 +1,137 @@
+ 제어문 > 연산자
+    PL/SQL
+        연산자
+            1)산술연산자: + - * /
+            2)비교연산자: = <> < > <= >=
+            3)논리연산자: and, or, not
+            4) null: is null, is not null
+            5) between ~ and
+            6) like
+            7) in
+           내장 함수
+            1) 문자 함수
+                substr / instr / length
+            2) 숫자 함수
+                ceil / round / mod
+            3) 날짜 함수
+                sysdate / months_between
+            4) 변환 함수
+                to_char / todate
+            5) 기타 함수
+                nvl / case
+            6) 집계 함수
+                count / sum / avg / max
+                
+            > 제어문 (자바와 동일)
+            단일 조건문
+                = 독립적
+                = 형식 > {}이 없다
+                   if 조건문 then 처리문장
+                   end if;
+            다중 조건문
+                if 조건문 then 처리문장 
+                elsif 조건문 then 처리문장
+                elsif 조건문 then 처리문장
+                elsif 조건문 then 처리문장
+                ...
+                else
+                end if;
+                
+            선택 조건문
+                if 조건문 then 처리문장
+                else 처리문장
+                end if;
+            일반 반복문
+            while
+            for
+            ------------------중심: sql
+ */
+ --단일 조건문
+ --초기값 int a=10 > vempno emp.empno%type:=값
+ declare
+    vename emp.ename%type;
+    vjob emp.job%type;
+    vdeptno emp.deptno%type;
+    vempno emp.empno%type:=&empno;
+    vdname dept.dname%type;
+ begin
+    select ename,job,deptno into vename,vjob,vdeptno
+    from emp
+    where empno=vempno;
+    
+    if vdeptno=10 then 
+        vdname:='개발부';
+    end if;
+    
+       if vdeptno=20 then 
+        vdname:='영업부';
+    end if;
+    
+       if vdeptno=30 then 
+        vdname:='기획부';
+    end if;
+    
+     dbms_output.put_line('***** 결과 *****');  
+     dbms_output.put_line('이름:'||vename);
+     dbms_output.put_line('직업:'||vjob);
+     dbms_output.put_line('부서명:'||vdname);
+   
+ end;
+ /
+ 
+ --다중 조건문
+ declare
+    vename emp.ename%type;
+    vjob emp.job%type;
+    vdeptno emp.deptno%type;
+    vempno emp.empno%type:=&empno;
+    vdname dept.dname%type;
+ begin
+    select ename,job,deptno into vename,vjob,vdeptno
+    from emp
+    where empno=vempno;
+    --조건에 맞는 if한개 수행
+    if vdeptno=10 then 
+        vdname:='개발부';
+    elsif vdeptno=20 then 
+        vdname:='영업부';
+    elsif vdeptno=30 then 
+        vdname:='기획부';
+    else
+        vdname:='신입';
+    end if;
+    
+     dbms_output.put_line('***** 결과 *****');  
+     dbms_output.put_line('이름:'||vename);
+     dbms_output.put_line('직업:'||vjob);
+     dbms_output.put_line('부서명:'||vdname);
+   
+ end;
+ /
+ 
+ --선택 조건문
+ declare
+    vename emp.ename%type;
+    vjob emp.job%type;
+    vdeptno emp.deptno%type;
+    vempno emp.empno%type:=&empno;
+    vdname dept.dname%type;
+ begin
+    select ename,job,deptno into vename,vjob,vdeptno
+    from emp
+    where empno=vempno;
+    
+    vdname:=case vdeptno
+        when 10 then '개발부'
+        when 20 then '영업부'
+        when 30 then '기획부'
+        else '신입'
+        end;
+    
+     dbms_output.put_line('***** 결과 *****');  
+     dbms_output.put_line('이름:'||vename);
+     dbms_output.put_line('직업:'||vjob);
+     dbms_output.put_line('부서명:'||vdname);
+   
+ end;
+ /
