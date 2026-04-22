@@ -1,4 +1,4 @@
- 제어문 > 연산자
+제어문 > 연산자
     PL/SQL
         연산자
             1)산술연산자: + - * /
@@ -45,8 +45,8 @@
             while
             for
             ------------------중심: sql
- */
- --단일 조건문
+
+--단일 조건문
  --초기값 int a=10 > vempno emp.empno%type:=값
  declare
     vename emp.ename%type;
@@ -78,6 +78,7 @@
    
  end;
  /
+ 
  
  --다중 조건문
  declare
@@ -120,7 +121,7 @@
     select ename,job,deptno into vename,vjob,vdeptno
     from emp
     where empno=vempno;
-    
+--다중 조건문보다는 많이 사용되는 문장
     vdname:=case vdeptno
         when 10 then '개발부'
         when 20 then '영업부'
@@ -135,3 +136,52 @@
    
  end;
  /
+ 
+ --if ~ else > true/false > 수행을 다르게 한다
+ /*
+    if 조건 then 처리문장
+    else 처리문장
+    end if;
+ */
+ select * from emp;
+ declare
+  vename emp.ename%type;
+  vsal emp.sal%type;
+  vcomm emp.comm%type;
+  vempno emp.empno%type:=&empno;
+begin
+    select ename,sal,comm into vename,vsal,vcomm
+    from emp
+    where empno=vempno;
+    --null 값이면 > else
+    if vcomm>0 then
+        dbms_output.put_line(vename||'사원의 급여는 '||vsal||'이고 성과급은 '||vcomm||'입니다');
+    else 
+        dbms_output.put_line(vename||'사원의 급여는 '||vsal||'이고 성과급은 없습니다');
+    end if;
+end;
+/
+/*
+    조건문
+        단일
+            if 조건 then 처리문장
+            end if;
+        다중
+            if 조건 then 처리문장
+            elsif 조건 then 처리문장
+            elsif 조건 then 처리문장
+            ..
+            else 처리문장
+            end if;
+            
+            case 값
+                when 조건 then 값
+                when 조건 then 값
+                when 조건 then 값
+                else 값
+                end;
+        선택
+            if 조건 then 처리문장
+            else 처리문장
+            end if;
+*/
