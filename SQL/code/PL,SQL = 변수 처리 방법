@@ -1,0 +1,23 @@
+set serveroutput on;
+declare
+    --일반 변수 사용
+    vempno number(4);
+    vename varchar2(20);
+    vjob varchar2(20);
+    vhiredate date;
+begin
+    --구현
+    select empno,ename,job,hiredate
+        into vempno,vename,vjob,vhiredate
+    from emp
+    where empno=7788;
+    
+    --변수 출력
+    -- System.out.println()
+    dbms_output.put_line('***** 결과 *****');
+    dbms_output.put_line('사번:'||vempno);
+    dbms_output.put_line('이름:'||vename);
+    dbms_output.put_line('직업:'||vjob);
+    dbms_output.put_line('고용일:'||vhiredate);
+end;
+/
