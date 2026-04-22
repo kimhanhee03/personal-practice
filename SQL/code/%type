@@ -1,0 +1,36 @@
+-- %type: 가장 많이 사용되는 변수 > 실제 컬럼의 데이터형 읽기
+-- 사용 방식: 테이블명.컬럼명%type
+/*
+    ***1. DML (게시판)
+    ***2. JOIN / SUBQUERY (지니뮤직, 멜론)
+    3. PROCEDURE
+    custid not null number(2)
+    name varchar2(40)
+    address //(50)
+    phone //(20)
+    
+    main() - declare
+    {  - begin
+    } - end
+*/
+declare
+    --변수 선언 = 테이블에 존재하는 실제 컬럼의 데이터형 읽기 
+    vcustid customer.custid%type;
+    vname customer.name%type;
+    vaddress customer.address%type;
+    vphone customer.phone%type;
+begin
+    --값을 채운다
+    select custid, name, address, phone
+            into vcustid, vname, vaddress, vphone
+        from customer
+        where custid=1;
+        --row단위 > 한개값만 받을 수 있다
+    --실제화면에 출력
+    dbms_output.put_line('***** 결과 *****');
+    dbms_output.put_line('번호:'||vcustid);
+    dbms_output.put_line('이름:'||vname);
+    dbms_output.put_line('주소:'||vaddress);
+    dbms_output.put_line('전화:'||vphone);
+end;
+/
