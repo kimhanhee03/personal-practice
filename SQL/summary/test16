@@ -1,0 +1,80 @@
+1. SQL 전체 구조 (핵심 개념)
+  SQL은 4가지로 구분
+    DML: 데이터 조회/변경
+    DDL: 객체 생성/구조 변경
+    DCL: 권한 관리
+    TCL: 트랜잭션 제어
+
+
+2. DML
+  ✔ SELECT (실행 순서 중요)
+      SELECT column
+      FROM table
+      WHERE 조건
+      GROUP BY 컬럼
+      HAVING 조건
+      ORDER BY 컬럼;
+      → 실행 순서
+    FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+
+  ✔ INSERT
+      INSERT INTO table VALUES(값들);         -- 전체 컬럼
+      INSERT INTO table(col1, col2) VALUES(); -- 일부 컬럼
+
+  ✔ UPDATE
+      UPDATE table
+      SET col1 = 값, col2 = 값
+      WHERE 조건;
+  ✔ DELETE
+      DELETE FROM table
+      WHERE 조건;
+    → WHERE 없으면 전체 삭제 (주의)
+
+
+3. DDL (구조 정의)
+  테이블/객체 생성 및 변경
+    ✔ CREATE
+      1) 테이블
+        CREATE TABLE table_name (
+          col datatype [제약조건],
+          col datatype,
+        CONSTRAINT 제약조건명 PRIMARY KEY(col)
+        );
+     복사 테이블
+       CREATE TABLE new_table AS SELECT * FROM old_table;
+
+    2) VIEW
+        CREATE OR REPLACE VIEW v_name AS
+        SELECT ...
+
+    3) SEQUENCE
+        CREATE SEQUENCE seq_name
+        START WITH 1
+        INCREMENT BY 1
+        NOCACHE
+        NOCYCLE;
+
+    4) INDEX
+        CREATE INDEX idx_name ON table(col);
+
+  ✔ ALTER (구조 변경)
+      ALTER TABLE table ADD col datatype;
+      ALTER TABLE table MODIFY col datatype;
+      ALTER TABLE table DROP COLUMN col;
+      ALTER TABLE table RENAME COLUMN old TO new;
+
+  ✔ DROP (삭제)
+      DROP TABLE table;
+      DROP INDEX idx;
+      DROP SEQUENCE seq;
+      DROP VIEW view;
+
+  ✔ RENAME
+      RENAME old_name TO new_name;
+
+  ✔ TRUNCATE
+      TRUNCATE TABLE table;
+     특징
+       전체 삭제
+       ROLLBACK 불가
+       속도 빠름
