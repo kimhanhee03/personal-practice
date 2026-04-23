@@ -1,0 +1,91 @@
+--Trigger
+/*
+    자동 이벤트 처리=미리 설정된 조건에 맞는 경우에 자동 실행
+        ------
+        DML (insert,update,delete)
+       테이블이 다른 경우에만 적용
+                -------
+                |     |  = 상품: 남아 있는 경우: update, 0이면 delete
+          입고, 출고, 재고 = 상품 등록: 같은(update) / 다른(insert)
+            |         |
+            -----------
+            신발 물류 관리 /컨테츠 관리/ 지도 맵관리
+            레시피 / 맛집 > 공간대여(파티룸) > 학원 사이트(온라인 시험)
+        맛집 = 좋아요 > 자동 증가
+       
+       형식)
+            create [or repalce] trigger trigger_name
+            before|after [insert|update|delete} on table_name
+             먼저  나중애 적용
+            each row
+            declare
+              변수 선언
+            begin
+            
+            end;
+            /
+            삭제
+                drop trigger tri_name
+            =sql문장을 줄일 수 있다 / 보안
+            =가독성이 떨어진다
+              |자바에서 호출하지 않기 떔에
+              |오라클 자체에서 실행
+       
+*/
+create table 상품(
+ 품번 number,
+ 상품명 varchar2(100),
+ 단가 number
+);
+create table 입고(
+ 품번 number,
+ 수량 number,
+ 금액 number
+);
+create table 출고(
+ 품번 number,
+ 수량 number,
+ 금액 number
+);
+create table 재고(
+ 품번 number,
+ 수량 number,
+ 금액 number,
+ 누적금액 number
+);
+
+delete from 상품;
+--sql 튜닝 truncate
+insert into 상품 values(100,'새우깡',1500);
+insert into 상품 values(200,'감자깡',1200);
+insert into 상품 values(300,'고구마깡',1700);
+insert into 상품 values(400,'치토스',2000);
+insert into 상품 values(500,'맛동산',2500);
+commit;
+/*
+    insert into 입고 values(100,3,1500)
+    :new
+    :old 이전에 등록된 값
+*/
+
+create or replace trigger 입고_trigger
+after insert on 입고
+for each row 
+declare
+ v_cnt number;
+ begin
+ --상품이 재고 있는지 확인
+ select count(*) into v_cnt
+ from 재고
+ where 품번=:new.품번; -- 입고시에 insert로 들어오는 값
+ if v_cnt=0 then
+ insert into 재고 values(:new.품번,:new.수량,:new.금액,:new.수량*:new.금액);
+ else
+    update 재고 set
+    수량=수량+:new.수량,
+    누적금액=누적금액+(:new.수량*:new.금액)
+    where 품번=:new.품번;
+    --commit사용하면 오류
+ end if;
+ end;
+ /
