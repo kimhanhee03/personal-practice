@@ -1,0 +1,67 @@
+create table student(
+    hakbun number primary key,
+    name varchar2(51) not null,
+    kor number(3),
+    eng number(3),
+    math number(3)
+    );
+    
+create sequence std_seq
+    start with 1
+   increment by 1
+   nocache
+   nocycle;
+   
+insert into student values(std_seq.nextval,'홍길동',90,87,78);
+insert into student values(std_seq.nextval,'심청이',75,56,78);
+insert into student values(std_seq.nextval,'박문수',90,65,98);
+insert into student values(std_seq.nextval,'이순신',45,87,98);
+insert into student values(std_seq.nextval,'강감찬',87,56,76);
+commit;
+
+/*
+    function 형식 
+    create [or replace] function func_name(매개변수)
+    return 데이터형 (number, varchar2, clob,date)
+    is
+        지역변수
+    begin
+        기능 처리
+          return 값
+                 -- return 지정된 데이터형과 일치
+    end;
+*/
+
+select hakbun,name,kor,eng,math,(kor+eng+math) "total",
+    round((kor+eng+math)/3.0,2) "avg"
+from student;
+
+
+create or replace function studentTotal(
+    pHakbun student.hakbun%type
+    )return number
+    is 
+     pSum number;
+    begin
+    select kor+eng+math into pSum
+    from student
+    where hakbun=phakbun;
+    return pSum;
+    end;
+    /
+
+create or replace function studentAvg(
+    pHakbun student.hakbun%type
+    ) return number
+    is 
+    pAvg number;
+    begin
+        select round((kor+eng+math)/3.0,2) into pAvg
+        from student
+        where hakbun=phakbun;
+        return pAvg;
+    end;
+    /
+
+select hakbun,name,kor,eng,math,studentTotal(hakbun)
+from student;  
