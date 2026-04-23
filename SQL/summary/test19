@@ -1,0 +1,90 @@
+1. 핵심 개념 정리 (FUNCTION / PROCEDURE / TRIGGER)
+  📌FUNCTION (함수)
+      반드시 RETURN 있음
+      주 용도: SELECT 안에서 사용
+      한 행(Row) 단위 계산 / 변환 / 조회
+    ✔ 특징
+        SELECT에서 호출 가능
+        주로 계산, 변환, 조회
+        DML(INSERT, UPDATE, DELETE) 사용 지양
+    ✔ 예시 용도
+        총점, 평균 계산
+        날짜/문자 변환
+        JOIN 대신 값 조회
+
+  📌PROCEDURE 
+      RETURN 없음
+      작업 처리용 (기능 실행)
+    ✔ 특징
+        INSERT / UPDATE / DELETE / 트랜잭션 처리
+        웹에서 많이 사용 (JDBC, MyBatis 등)
+        공통 기능 묶기 (댓글, 좋아요 등)
+    ✔ 핵심
+        IN / OUT / INOUT 파라미터 사용
+        CALL 또는 EXECUTE로 실행    
+
+   📌TRIGGER
+        자동 실행 (이벤트 기반)
+        특정 테이블에서 INSERT / UPDATE / DELETE 발생 시 실행
+      ✔ 특징
+          자동화 처리
+          데이터 무결성 유지
+          다른 테이블에 영향 줄 때 사용
+      ✔ 대표 사례
+           입고 → 재고 증가
+           출고 → 재고 감소
+           삭제 → 재고 삭제
+
+
+2. 구조(문법)
+    ✔ FUNCTION
+        CREATE OR REPLACE FUNCTION 함수명(매개변수)
+        RETURN 데이터형
+        IS
+        BEGIN
+        RETURN 값;
+        END;
+        /
+    ✔ PROCEDURE
+        CREATE OR REPLACE PROCEDURE 프로시저명(매개변수)
+        IS
+        BEGIN
+        실행문;
+        END;
+        /
+    ✔ TRIGGER
+        CREATE OR REPLACE TRIGGER 트리거명
+        AFTER INSERT ON 테이블
+        FOR EACH ROW
+        BEGIN
+        실행문;
+        END;
+        /
+
+
+3. 중요한 사용 포인트
+    FUNCTION 언제 쓰나?
+       SELECT에서 계산 필요할 때
+       반복되는 조회 로직 숨길 때
+       JOIN 대신 간단하게 값 가져올 때
+       ex) SELECT studentTotal(hakbun) FROM student;
+    PROCEDURE 언제 쓰냐?
+       데이터 변경 작업 묶을 때
+       트랜잭션 처리 필요할 때
+       웹에서 DB 로직 실행할 때
+       ex) 회원가입, 주문 처리, 댓글 등록
+    TRIGGER 언제 쓰냐?
+       자동 처리 필요할 때
+       데이터 연동 (A 테이블 → B 테이블)
+       ex) 입고 → 재고 자동 증가, 출고 → 재고 감소
+
+
+
+           구분    	FUNCTION	    PROCEDURE	    TRIGGER
+           리턴    	  있음	          없음	          없음
+           사용	      SELECT	    작업 처리	    자동 실행
+           목적	     계산/조회	   데이터 처리	   이벤트 처리
+           호출	     SELECT 안	    CALL	        자동
+       
+           
+      
