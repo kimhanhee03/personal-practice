@@ -84,7 +84,35 @@
            리턴    	  있음	          없음	          없음
            사용	      SELECT	    작업 처리	    자동 실행
            목적	     계산/조회	   데이터 처리	   이벤트 처리
-           호출	     SELECT 안	      CALL	         자동
+           호출	     SELECT 안	      CALL	          자동
+
+
+=========================================================
+1.FUNCTION vs PROCEDURE 차이
+  FUNCTION: 값을 반환 → SELECT에서 사용
+  PROCEDURE: 작업 수행 → 리턴 없음
+
+2.TRIGGER 특징
+  특정 이벤트 발생 시 자동 실행
+  INSERT / UPDATE / DELETE 기반
+  데이터 자동 처리
+
+3.IN / OUT 개념
+  IN → 값 전달
+  OUT → 값 반환
+  INOUT → 둘 다
+
+4.언제 뭐 쓰는지
+  계산 → FUNCTION
+  데이터 처리 → PROCEDURE
+  자동 처리 → TRIGGER
+
+5. 주의점
+ Q. TRIGGER 왜 조심해야 하나요?
+ A. "자동 실행이라 디버깅 어렵고 성능 영향 있음"
+
+ Q. FUNCTION 왜 남용하면 안되나요?
+ A "SELECT마다 호출되어 성능 저하"
 
        
            
