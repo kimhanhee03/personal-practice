@@ -1,0 +1,107 @@
+--procedure: 리턴형이 없는 함수 > 기능중심
+/*
+    create or replace procedure pro_name(매개변수)
+    is
+        필요 변수 설정
+    begin
+        기능 처리
+    end;
+    /
+    
+    call pro_name(값...) > callablestatment
+*/
+
+/*
+    매개변수 > in/out/inout
+        in - 값을 대입(insert. update, delete)
+              default > 생략이 된 경우
+        out - 값을 받는 변수
+        input - 값대입, 값받기
+*/
+
+
+--student
+--insert
+create or replace procedure studentInsert(
+    pName student.name%type,
+    pKor student.kor%type,
+    pEng student.eng%type,
+    pMath student.math%type
+)
+is
+begin
+    insert into student values(std_seq.nextval,pName,pKor,pEng,pmath);
+    commit;
+end;
+/
+
+call studentInsert('김두한' ,90,87,67);
+select * from student;
+
+
+--update
+create or replace procedure studentUpdate(
+    pHakbun student.hakbun%type,
+    pName student.name%type,
+    pKor student.kor%type,
+    pEng student.eng%type,
+    pMath student.math%type
+    )
+is
+--필요한 변수 선언 위치
+begin
+update student set
+name=pName,kor=pKor,eng=pEng,math=pMath
+where hakbun=pHakbun;
+end;
+/
+
+call studentUpdate(2,'춘향이',80,70,80);
+select * from student;
+--가독성
+
+
+--delete
+create or replace procedure studentDelete(
+pHakbun student.hakbun%type
+)
+is
+begin
+--sql문장
+    delete from student
+    where hakbun=phakbun;
+    commit;
+end;   
+/
+
+call studentDelete(2);
+select * from student;
+--여러개의 sql문장 제어/일괄 처리/보안
+
+
+--select 
+create or replace procedure studentSelect(
+    pHakbun student.hakbun%type,
+    pName out student.name%type,
+    pKor out student.kor%type,
+    pEng out student.eng%type,
+    pMath out student.math%type
+)
+is
+begin
+    select name,kor,eng,math into pName,pKor,pEng,pMath
+    from student
+    where hakbun=pHakbun;
+end;
+/
+
+variable pName varchar2(51);
+variable pKor number;
+variable pEng number;
+variable pMath number;
+
+execute studentSelect(1,:pName,:pKor,:pEng,:pMath);
+print pName;
+print pKor;
+print pEng;
+print pMath;
