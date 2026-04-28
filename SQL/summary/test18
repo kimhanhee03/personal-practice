@@ -1,4 +1,4 @@
-1. PL/SQL 한방 정리 (핵심 구조)
+1. PL/SQL 정리 (핵심 구조)
   PL/SQL = SQL + 프로그래밍 (절차적 처리)
     DECLARE   -- 변수 선언
     BEGIN     -- 실행 (SQL + 제어문)
