@@ -69,99 +69,81 @@ src	속성
 
 
 7. 태그 종류
-1) 값을 가지는 태그
-<h1>제목</h1>
-2) 값 없는 태그
-<br>
-<hr>
-3) 속성 사용하는 태그
-<a href="test.html">
-<img src="a.jpg">
+  1) 값을 가지는 태그
+    <h1>제목</h1>
+  2) 값 없는 태그
+    <br>
+    <hr>
+  3) 속성 사용하는 태그
+    <a href="test.html">
+    <img src="a.jpg">
 
 
 8. 제목 태그
-<h1>큰 제목</h1>
-<h2>제목</h2>
-...
-<h6>작은 제목</h6>
-
-특징:
-
-숫자가 커질수록 글자 작아짐
-기본 bold(굵게)
-반드시 닫기 태그 사용
+  <h1>큰 제목</h1>
+  <h2>제목</h2>
+  ...
+  <h6>작은 제목</h6>
+  
+   특징
+    숫자가 커질수록 글자 작아짐
+    기본 bold(굵게)
+    반드시 닫기 태그 사용
 
 
 9. HTML 특징
-인터프리터 방식
-한 줄씩 실행
-컴파일 없음
-에러가 나도 실행됨
+    인터프리터 방식
+    한 줄씩 실행
+    컴파일 없음
+    에러가 나도 실행됨
 
 → 오류 확인:
+  브라우저 개발자도구(F12)
+  Console 확인
 
-브라우저 개발자도구(F12)
-Console 확인
+  
 10. 작성 규칙
-반드시 소문자 사용
-<h1>
-<img>
+  반드시 소문자 사용
+    <h1>
+    <img>
+  권장 ❌
+    <H1>
+    <IMG>
 
-권장 ❌
-
-<H1>
-<IMG>
+    
 11. Inline / Block
-Block 태그
+  Block 태그
+    세로 출력
+    Java의: System.out.println()같은 느낌
+  Inline 태그
+    가로 출력
+    Java의: System.out.print()같은 느낌
 
-세로 출력
-
-<h1>
-<div>
-<p>
-
-Java의:
-
-System.out.println()
-
-같은 느낌
-
-Inline 태그
-
-가로 출력
-
-<span>
-<a>
-
-Java의:
-
-System.out.print()
-
-같은 느낌
 
 12. body 안에서 많이 쓰는 태그
-종류	예시
-문자 태그	h1, p
-이미지	img
-이동	a
-입력	input
-목록	ul, ol
-영역 분할	div, span
+      종류	        예시
+      문자 태그	    h1, p
+      이미지        	img
+      이동	        a
+      입력	        input
+      목록	        ul, ol
+      영역 분할	      div, span
 
 
 핵심만 외우기
-HTML 기본 구조
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-</body>
-</html>
+  HTML 기본 구조
+  <!DOCTYPE html>
+  <html>
+  <head>
+  </head>
+  <body>
+  </body>
+  </html>
+  
 가장 중요한 개념
-태그 = 명령어
-속성 = 추가 정보
-body = 화면 출력
-head = 설정
-태그/속성은 소문자
-HTML은 에러가 잘 안남 → 개발자도구 확인
+  태그 = 명령어
+  속성 = 추가 정보
+  body = 화면 출력
+  head = 설정
+  태그/속성은 소문자
+  HTML은 에러가 잘 안남 → 개발자도구 확인
