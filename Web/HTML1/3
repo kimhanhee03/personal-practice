@@ -1,0 +1,37 @@
+<small>	      작은 글자 출력 (부제목)
+<address>	    주소 표시, 이태릭체
+<sup>	        위첨자   ⭐⭐⭐
+<sub>	        아래첨자
+<b>	          굵은 글자 (bold)
+<em>	        강조 (기울임 느낌)
+<strong>	    강한 강조 (굵게)
+<i>	          이태릭체
+<mark>	      형광펜 효과
+<marquee>	    움직이는 전광판 효과
+
+  ex)
+    <small>부제목</small>
+    10<sup>2</sup> → 10²
+    H<sub>2</sub>O → H₂O
+    <mark>중요</mark> → 형광색 표시
+
+
+<img>
+   기능: 이미지 출력
+   <img src="a.jpg">
+ 주요 속성
+   src	    이미지 파일 경로
+   title	  마우스 올렸을 때 도움말
+   alt	    이미지 오류 시 대체 문자
+   width	  가로 크기
+   height	  세로 크기
+     ex) <img src="cat.jpg" width="200" height="150">
+
+
+멀티미디어 태그
+  <img>	      이미지 출력
+  <embed>	    동영상/음악 삽입 <embed src="movie.mp4">
+  <iframe>  	다른 HTML 페이지 삽입 <iframe src="test.html"></iframe>
+  
+
+
