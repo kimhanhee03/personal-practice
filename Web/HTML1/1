@@ -48,24 +48,24 @@
      </h1>
     3) 같이 사용
      <h1>안녕하세요</h1>
-    5. 독립 태그
-      닫는 태그 없이 사용
-        <br>
-        <img>
-        <input>
-        <hr>
-        예시: <img src="a.jpg">
+
+     
+5. 독립 태그
+    닫는 태그 없이 사용
+      <br>
+      <img>
+      <input>
+      <hr>
+       예시: <img src="a.jpg">
 
 
 6. 속성(Attribute)
-
-태그 안에 추가 정보 저장
-
-<img src="a.jpg">
-부분	의미
-img	태그
-src	속성
-"a.jpg"	값
+  태그 안에 추가 정보 저장
+    <img src="a.jpg">
+    부분	의미
+      img	태그
+      src	속성
+      "a.jpg"	값
 
 
 7. 태그 종류
