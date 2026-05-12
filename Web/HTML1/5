@@ -2,7 +2,7 @@ input text  	      한줄 입력
 input password	      비밀번호
 input submit	        전송
 input reset	           초기화
-input file	         파일 선택
+input file	          파일 선택
 textarea	         여러줄 입력
-select	             콤보박스
-option	            선택 항목
+select	              콤보박스
+option	              선택 항목
