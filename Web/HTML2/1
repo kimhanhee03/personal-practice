@@ -1,1 +1,87 @@
+<ul>	  순서 없는 목록
+<ol>	  순서 있는 목록
+<li>	  목록 항목
+<dl>	  설명 목록
+<dt>	  제목
+<dd>	  설명 내용
+
+📌<ul>
+   순서 없는 목록
+    <ul>
+      <li>사과</li>
+      <li>포도</li>
+    </ul>
+    결과
+     • 사과
+     • 포도
+
+📌<ol>
+   번호 있는 목록
+    <ol>
+      <li>회원가입</li>
+      <li>로그인</li>
+    </ol>
+    결과
+    1. 회원가입
+    2. 로그인
+
+📌<li>
+  목록 항목
+    <li>데이터</li>
+
+📌테이블 태그 <table>
+  기능: 행(row) + 열(column) 구조 생성
+    기본 구조
+       <table>
+         <tr>
+           <th>이름</th>
+           <td>홍길동</td>
+         </tr>
+       </table>
+    역할
+      <table>	테이블 생성
+      <tr>	행(row)
+      <th>	제목칸
+      <td>	데이터칸
+
+📌셀 병합
+  rowspan	세로 병합
+  colspan	가로 병합
+
+📌React / Vue 방식 테이블 구조
+    <thead>	제목 영역
+    <tbody>	실제 데이터
+    <tfoot>	합계/통계
+      ex)
+        <table>
+          <thead>
+            제목
+          </thead>
+          <tbody>
+            데이터
+          </tbody>
+          <tfoot>
+            합계
+          </tfoot>
+        </table>
+
+📌입력 태그
+    <input>      	입력창
+    <textarea>	  여러줄 입력
+    <select>  	  선택박스
+    <fieldset>	  입력 그룹
+    <label>      	입력 설명
+
+📌영역 분할 태그
+    <div>  	큰 영역 분할 (block)
+    <span>	작은 영역 분할 (inline)
+    
+📌이미지 관련 태그
+    <map>	      이미지 영역 지정
+    <figcaption>	이미지 설명
+
+
+
+  
+
 
