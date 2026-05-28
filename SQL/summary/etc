@@ -1,0 +1,5 @@
+Query = SQL 요청
+executeQuery() = SELECT 실행
+executeUpdate() =  INSERT / UPDATE / DELETE 실행
+ResultSet = 결과 저장
+rs.next() = 다음 줄 이동
