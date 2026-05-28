@@ -1,0 +1,8 @@
+void	                값 안 돌려줌
+int/String/List	      값 돌려줌
+static	              객체 없이 사용
+static 없음	          new 필요
+
+접근제어자	  같은 클래스	다른 클래스
+private	    ⭕ 가능	    ❌ 불가
+public	    ⭕ 가능	    ⭕ 가능
