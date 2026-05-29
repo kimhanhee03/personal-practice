@@ -1,0 +1,34 @@
+1. request란?
+  사용자가 보낸 정보 저장 + JSP에 데이터 전달
+
+2. 기본형태
+  protected void service(
+  HttpServletRequest request,
+  HttpServletResponse response)
+   뜻:
+    request
+    = 사용자 요청 정보
+
+    response
+    = 사용자에게 응답
+
+3. request에서 제일 중요한 2개
+ getParameter() : 사용자가 보낸 값 꺼내기
+  코드:
+   String no=
+   request.getParameter("no");
+  문자열 String > 숫자면 > 변환:
+    Integer.parseInt(no) 
+ setAttribute() : JSP에 값 넘기기
+  코드:
+   request.setAttribute("이름", 값);
+  ex)
+    BoardVO vo=
+    dao.boardDetailData(no);
+    request.setAttribute("vo",vo);
+     뜻: JSP에서 vo 쓰게 전달
+    
+    JSP에서 사용:
+      ${vo.subject}
+      ${vo.name}
+        > 꺼내서 화면 출력.
