@@ -3,3 +3,9 @@ executeQuery() = SELECT 실행
 executeUpdate() =  INSERT / UPDATE / DELETE 실행
 ResultSet = 결과 저장
 rs.next() = 다음 줄 이동
+
+OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY : 목록/페이징 ex)게시글 12개씩
+SELECT CEIL(COUNT(*)/12.0) FROM food : 총페이지
+    > 게시글이 12개씩이니까 12로 나눔
+      CEIL 무조건 반올림
+      12로 나누면 소수점 반영 안됨 > 35/12하면 12,12,11 이렇게 나뉘어야 하는데 소수점이 없어 2페이지밖에 못만듬(11개 게시글 못나옴)
