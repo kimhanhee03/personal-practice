@@ -1,4 +1,4 @@
-1. DOM (문서 객체 모델)
+1. DOM (문서 객체 모델) 
   HTML을 JavaScript가 조작할 수 있게 만든 구조
   JS로 HTML 변경 가능
   HTML → DOM → JavaScript 조작
@@ -6,6 +6,7 @@
       글자 변경
       색상 변경
       버튼 기능 추가
+
 
 2. 객체 선택 (가장 중요)
   id 선택
@@ -17,6 +18,7 @@
   여러개 선택
     document.querySelectorAll(".class")
 
+
 3. DOM 조작
   글자 변경
       element.textContent="변경";
@@ -26,6 +28,7 @@
       element.style.color="red";
       element.style.fontSize="30px";
 
+
 4. 이벤트(Event)
   사용자 행동 감지
     ex)
@@ -33,12 +36,14 @@
       키보드 입력
       마우스 이동
 
+
 5. 이벤트 등록
     표준 방식 (실무)
       btn.addEventListener("click",function(){
       
       })
       → 버튼 클릭 시 실행
+
 
 6. 자주 쓰는 이벤트
   click	      클릭
@@ -48,10 +53,12 @@
   keydown	    키 누름
   mouseover	  마우스 올림
 
+
 7. 속성 변경
     img.src="dog.jpg"
     link.href="주소"
     input.value="홍길동"
+
 
 DOM 핵심 공식
     //1. 선택
