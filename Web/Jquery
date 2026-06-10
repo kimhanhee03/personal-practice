@@ -83,7 +83,7 @@ Jquery란?
       .animate()
 
 
-jQuery 핵심 암기
+Jquery 핵심 
   선택 → 조작 → 이벤트
     선택
       $("#id")
