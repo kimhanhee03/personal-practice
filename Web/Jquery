@@ -1,0 +1,107 @@
+Jquery란?
+  JavaScript를 쉽게 쓰게 만든 라이브러리
+  코드 짧게 작성 가능
+
+
+1. 기본 구조
+  Jquery 불러오기
+      <script src="jquery.js"></script>
+  실행 준비
+      $(function(){
+
+      });
+     → HTML 다 로드 후 실행
+
+
+2. 요소 선택 (핵심)
+  id
+    $("#id")
+  class
+    $(".class")
+  태그
+    $("p")
+  자식/자손
+    $("ul > li")
+    $("div p")
+
+
+3. DOM 조작
+  글자 변경
+      $("#title").text("Hello");
+  HTML 변경
+      $("#box").html("<b>굵게</b>");
+  input 값
+      $("#id").val();
+  속성 변경
+      $("img").attr("src","a.jpg");
+
+
+4. CSS 조작
+  스타일 변경
+     $("#box").css("color","red");
+  클래스 추가/삭제
+     .addClass()
+     .removeClass()
+     .toggleClass()
+  
+
+5. 요소 추가/삭제
+  추가
+    .append()
+    .prepend()
+  삭제
+    .remove()
+    .empty()
+
+
+6. 이벤트 (핵심)
+    클릭
+      $("#btn").click(function(){
+
+      });
+
+      최신 방식 (추천 )
+        $(document).on("click",".btn",
+        function(){
+  
+        });
+      → 나중에 만든 버튼도 이벤트 적용됨
+
+
+7. 효과(Animation)
+    숨김/보이기
+      .show()
+      .hide()
+      .toggle()
+    페이드
+      .fadeIn()
+      .fadeOut()
+    슬라이드
+      .slideDown()
+      .slideUp()
+    애니메이션
+      .animate()
+
+
+jQuery 핵심 암기
+  선택 → 조작 → 이벤트
+    선택
+      $("#id")
+      $(".class")
+      $("tag")
+    조작
+      .text()
+      .html()
+      .val()
+      .attr()
+      .css()
+    이벤트
+      .click()
+      .on()
+
+
+실무 한줄 정리
+  Jquery
+    = JavaScript 쉽게 만든 도구
+    = 유지보수용 많이 씀
+    = 신규 개발은 React/Vanilla JS 많이 사용
