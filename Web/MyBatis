@@ -1,0 +1,102 @@
+MyBatis 핵심 요약
+  MyBatis란?
+    JDBC를 쉽게 사용하게 만든 SQL 매퍼 프레임워크
+    Java와 SQL 분리 가능
+        Java ↔ MyBatis ↔ DB
+
+
+1. config.xml
+  MyBatis 설정 파일
+    기능
+      DB 연결 설정
+      mapper 등록
+      alias 설정
+    DB 설정 + mapper 등록
+
+
+2. mapper.xml
+   SQL 작성 파일
+     기능
+        SQL 직접 작성
+        Java 메서드와 연결
+      핵심 속성
+         namespace → 인터페이스 연결
+         id → 메서드 이름
+         resultType → 반환 타입
+         parameterType → 입력 타입
+
+
+3. CRUD
+  조회
+    <select>
+  추가
+    <insert>
+  수정
+    <update>
+  삭제
+    <delete>
+
+
+4. 동적 SQL
+  <if>
+    조건문
+  <where>
+    자동 WHERE/AND 처리
+  <choose>
+    if-else
+  <set>
+    update 전용
+  <foreach>
+    반복문 (IN 절)
+
+
+5. MyBatis 동작 흐름
+  Controller
+  ↓
+  Service
+  ↓
+  Mapper Interface
+  ↓
+  Mapper XML(SQL)
+  ↓
+  JDBC
+  ↓
+  DB
+  ↓
+  결과 반환
+
+  핵심
+    인터페이스 호출
+    ↓
+    XML SQL 찾기
+    ↓
+    JDBC 실행
+    ↓
+    객체 변환
+
+
+6. 핵심 개념
+  resultType
+    → 반환 타입
+
+  parameterType
+    → 입력 타입
+
+  #{}
+    → 안전한 방식 (권장)
+    → PreparedStatement 사용
+
+  ${}
+    → 문자열 그대로 치환
+    → 보안 위험 (사용 지양)
+
+
+핵심 
+  config.xml
+    = 설정 파일
+  mapper.xml
+    = SQL 작성 파일
+  MyBatis
+    = SQL 직접 작성
+    = Java와 SQL 분리
+    = 동적 SQL 중요
