@@ -5,6 +5,7 @@ JSP란?
   JSP = HTML + Java
 
 
+
 JSP 구성요소
 
  문법          기능       
@@ -16,6 +17,7 @@ JSP 구성요소
 
 
 
+
 JSP 동작 순서
   .jsp 요청
   ↓
@@ -24,6 +26,7 @@ JSP 동작 순서
   컴파일
   ↓
   HTML 응답
+
 
 
 JSP 내장 객체
@@ -39,6 +42,7 @@ JSP 내장 객체
     = 화면 출력
 
 
+
 MVC 핵심 요약
   MVC란?
    역할 분리 구조
@@ -48,6 +52,7 @@ MVC 핵심 요약
 Model        DB 처리 
 View         화면 출력 
 Controller   요청 제어 
+
 
 
 
@@ -65,6 +70,7 @@ MVC 흐름
 
 
 
+
 Ajax 핵심
   Ajax란?
    새로고침 없이 데이터 통신
@@ -77,9 +83,11 @@ Ajax 핵심
       화면 일부 변경
 
 
+
 GET / POST
   GET = 조회
   POST = 저장/수정/삭제
+
 
 
 Ajax 흐름
@@ -94,6 +102,7 @@ Ajax 흐름
   JSON 응답
   ↓
   DOM 변경
+
 
 
 Git 핵심 요약
@@ -130,83 +139,26 @@ Git 핵심 요약
 
 
 
+Branch 핵심
+  branch란?
+   독립 작업 공간
+   main
+     = 배포용
+   develop
+     = 개발용
 
-# Branch 핵심
 
-## branch란?
 
-독립 작업 공간
+브랜치 생성
+  git branch issue1
+브랜치 이동
+  git checkout develop
+브랜치 생성 + 이동
+  git checkout -b issue1
+병합
+  git merge develop
+삭제
+  git branch -d issue1
 
-```text id="hjlwm2"
-main
-= 배포용
-```
 
-```text id="ijlwm3"
-develop
-= 개발용
-```
 
----
-
-## 브랜치 생성
-
-```bash id="jjlwm4"
-git branch issue1
-```
-
----
-
-## 브랜치 이동
-
-```bash id="kjlwm5"
-git checkout develop
-```
-
----
-
-## 브랜치 생성 + 이동
-
-```bash id="ljlwm6"
-git checkout -b issue1
-```
-
----
-
-## 병합
-
-```bash id="mjlwm7"
-git merge develop
-```
-
----
-
-## 삭제
-
-```bash id="njlwm8"
-git branch -d issue1
-```
-
----
-
-# 실무 핵심 암기 ⭐
-
-```text id="ojlwm9"
-작업 전
-= git pull
-```
-
-```text id="pjlwm0"
-작업 후
-= add → commit → push
-```
-
-```text id="qjlwm1"
-협업
-= develop
-```
-
-```text id="rjlwm2"
-배포
-= main
-```
